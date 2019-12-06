@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Menu extends JFrame implements ActionListener{
     static Scanner input = new Scanner(System.in);
+    Locadora locadora = new Locadora();
     JRadioButton sa = new JRadioButton("Sair do Programa",true);
     JRadioButton lo = new JRadioButton("Entrar no Menu de Locacoes");
     JRadioButton ca = new JRadioButton("Entrar no Menu de Carros");
@@ -43,20 +44,27 @@ public class Menu extends JFrame implements ActionListener{
         if(sa.isSelected()){    
             System.exit(0); 
         }    
-        if(lo.isSelected()){    
-            mLoca();
+        else if(lo.isSelected()){    
+            try {
+				mLoca();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
         }
-        if(ca.isSelected()){
-            mCarros();
+        else if(ca.isSelected()){
+            try {
+				mCarros();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
         }
     }
-    public static void mLoca() throws InterruptedException{
-        Locadora locadora = new Locadora();
+    public void mLoca() throws InterruptedException{
         MenuLocacao menuLoca = new MenuLocacao();
         menuLoca.Menu(locadora);
     }
-    public static void mCarros() throws InterruptedException{
-        Locadora locadora = new Locadora();
+    public void mCarros() throws InterruptedException{
+        
         MenuCarro menuCarros = new MenuCarro();
         menuCarros.Menu(locadora);
     }
