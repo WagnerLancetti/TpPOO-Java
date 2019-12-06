@@ -14,6 +14,7 @@ public class MenuLoca extends JFrame implements ActionListener{
     Random gerador = new Random(System.currentTimeMillis());
     String[] escolhas = {"Voltar para o Menu Principal", "Visualizar todos os carros alugados em uma locacao", "Criar uma nova locacao", "Devolver um carro de uma locacao especifica", "Devolver uma locacao completa"};
     ButtonGroup grupo = new ButtonGroup();
+    int i = 0;
     
     
     public void Menu(Locadora locadora){
@@ -76,22 +77,44 @@ public class MenuLoca extends JFrame implements ActionListener{
     public void VisualizaLocacoes(JPanel panel,Locadora locadora) {
     	remove(panel);
     	panel = new JPanel();
-    	panel.add(new JLabel("Marque qual locacao voce deseja verificar\n",SwingConstants.CENTER));
-    	int i = 0;
     	ButtonGroup grupo = new ButtonGroup();
     	ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+    	panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+1,1));    	panel.add(new JLabel("Marque qual locacao voce deseja verificar",SwingConstants.CENTER));
+    	i = 0;
     	while (i < locadora.locacoes.size()) {
 			botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
 			botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-			add(botao.get(i));
+			panel.add(botao.get(i));
 			grupo.add(botao.get(i));
 			i++;
-    	}    	
+    	}
+    	
+    	JButton conf = new JButton("Confirmar");
+    	conf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+    			MostraCarro(panel,locadora,botao);
+			}
+    	});
     	add(panel);
     	revalidate();
-    	
-    	
     }
+    
+    public void MostraCarro(JPanel panel, Locadora locadora, ArrayList<JRadioButton> botao) {
+    	i = 0;
+    	while(i < locadora.locacoes.size()) {
+			if (botao.get(i).isSelected()) {
+				break;
+			}
+			i++;
+		}
+    	int j = 0;
+    	while (j < locadora.locacoes.get(i).getTam()) {
+    		panel.add(new JLabel(locadora.locacoes.get(i).getCarro(j).toString()));
+    	}
+    }
+    
+    
+    
 //    public void Menu(Locadora locadora) throws InterruptedException{
 //    	ArrayList<Carro> carro1 = new ArrayList<>();
 //    	int i,entrada=0,entrada2 = 0,j;
