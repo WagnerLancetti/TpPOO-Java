@@ -1,5 +1,6 @@
 package TrabalhoPratico;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.*;
 import java.awt.event.*;
@@ -50,7 +51,6 @@ public class MenuLoca extends JFrame implements ActionListener{
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver uma locacao completa")){
         			//Funcao para devolver locacao
         		}
-        		
     		}
     	});
         panel.add(new JLabel("O que voce deseja fazer?\n",SwingConstants.CENTER));
@@ -64,7 +64,16 @@ public class MenuLoca extends JFrame implements ActionListener{
     	remove(panel);
     	panel = new JPanel();
     	panel.add(new JLabel("Marque qual locacao voce deseja verificar\n",SwingConstants.CENTER));
-    	
+    	int i = 0;
+    	ButtonGroup grupo = new ButtonGroup();
+    	ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+    	while (i < len(locadora.locacoes)) {
+			botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
+			botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+			add(botao.get(i));
+			grupo.add(botao.get(i));
+			i++;
+    	}    	
     	add(panel);
     	revalidate();
     	
