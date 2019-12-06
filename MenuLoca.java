@@ -17,12 +17,6 @@ public class MenuLoca extends JFrame implements ActionListener{
     
     
     public void Menu(Locadora locadora){
-    	Carro c = new Carro("Honda","XXX1234","Azul","Sport",2019,198237);
-    	Carro b = new Carro("FOrd","ABC1234","Preto","Familia",2015,8576293);
-    	Locacao loca = new Locacao("Wagner","18:26",81727313);
-    	loca.addCarro(c);
-    	loca.addCarro(b);
-    	locadora.locacoes.add(loca);
     	setTitle("Menu Locacao");
     	setSize(500,300);
 		setLocationRelativeTo(null);
