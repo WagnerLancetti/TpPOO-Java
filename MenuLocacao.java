@@ -1,14 +1,72 @@
-package TrabalhoPratico;
+package locadora;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Random;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.Scanner;
 
-public class MenuLocacao{
+public class MenuLocacao extends JFrame implements ActionListener{
     /* Atributos */
     Scanner input = new Scanner(System.in);
     Random gerador = new Random(System.currentTimeMillis());
+    JLabel titulo = new JLabel("Menu Locacao",SwingConstants.CENTER);
+    JLabel titulo2 = new JLabel("O que voce deseja fazer?",SwingConstants.CENTER);
+    JRadioButton vo = new JRadioButton("Voltar para o Menu Principal",true);
+    JRadioButton vi = new JRadioButton("Visualizar todos os carros alugados em uma locacao");
+    JRadioButton cr = new JRadioButton("Criar uma nova locacao");
+    JRadioButton de = new JRadioButton("Devolver um carro de uma locacao especifica");
+    JRadioButton dl = new JRadioButton("Devolver uma locacao completa");
+    JButton conf = new JButton("Confirmar");
+    ButtonGroup grupo = new ButtonGroup();
+    MenuLocacao(){
+        setTitle("Menu Locacao");
+        setSize(500,300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setLayout(new GridLayout(8,1));
+        setResizable(false);
 
+        titulo.setFont(new Font("Arial",Font.BOLD,30));
+        add(titulo);
+        add(titulo2);
+        
+        vo.setHorizontalAlignment(SwingConstants.CENTER);
+        vi.setHorizontalAlignment(SwingConstants.CENTER);
+        cr.setHorizontalAlignment(SwingConstants.CENTER);
+        de.setHorizontalAlignment(SwingConstants.CENTER);
+        dl.setHorizontalAlignment(SwingConstants.CENTER);
+        add(vo);grupo.add(vo);
+        add(vi);grupo.add(vi);
+        add(cr);grupo.add(cr);
+        add(de);grupo.add(de);
+        add(dl);grupo.add(dl);
+        
+        conf.setPreferredSize(new Dimension(10,10));
+        conf.addActionListener(this);
+        add(conf);
+    }
+    
+    public void actionPerformed(ActionEvent e){   
+        if(vo.isSelected()){    
+             
+        }    
+        if(vi.isSelected()){    
+            //chama vi
+        }
+        if(cr.isSelected()){
+            //chama cr
+        }
+        if(de.isSelected()){
+            
+        }
+        if(dl.isSelected()){
+            
+        }
+    }
+    
     public void Menu(Locadora locadora) throws InterruptedException{
     	ArrayList<Carro> carro1 = new ArrayList<>();
     	int i,entrada=0,entrada2 = 0,j;
