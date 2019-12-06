@@ -59,6 +59,7 @@ public class MenuLoca extends JFrame implements ActionListener{
         			VisualizaLocacoes(panel,locadora);
         			// Chama uma funcao para mostrar os carros
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Criar uma nova locacao")) {
+        			CriarLocacao(panel,locadora);
         			// Funcao para criar locacao
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver um carro de uma locacao especifica")) {
         			// Funcao para devolver carro
@@ -92,7 +93,7 @@ public class MenuLoca extends JFrame implements ActionListener{
     	JButton conf = new JButton("Confirmar");
     	conf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-    			MostraCarro(panel,locadora,botao);
+//    			MostraCarro(panel,locadora,botao);
 			}
     	});
     	add(panel);
@@ -113,62 +114,10 @@ public class MenuLoca extends JFrame implements ActionListener{
     	}
     }
     
+    public void CriarLocacao(JPanel panel, Locadora locadora) {
+    	
+    }
     
-    
-//    public void Menu(Locadora locadora) throws InterruptedException{
-//    	ArrayList<Carro> carro1 = new ArrayList<>();
-//    	int i,entrada=0,entrada2 = 0,j;
-//    	String nome=null;
-//    	String data=null;
-//        boolean menuloca = true, Iverifica, Iverifica2;
-//        while (menuloca){
-//            System.out.println("\n**************************************************");
-//            System.out.println("                 MENU LOCACOES                     ");
-//            System.out.println("**************************************************");
-//            System.out.println("	     Digite o que deseja fazer");
-//            System.out.println("0 - Voltar para o Menu Principal");
-//            System.out.println("1 - Visualizar todos os carros alugados em uma locacao");
-//            System.out.println("2 - Criar uma nova locacao");
-//            System.out.println("3 - Devolver um carro de uma locacao especifica");
-//            System.out.println("4 - Devolver uma locacao completa");
-//            System.out.print("Opcao: ");
-//            int opcao = in)put.nextInt();
-//            System.out.println("**************************************************");
-//            switch (opcao) {
-//                case 0: // SAIR DO MENU DE LOCACAO
-//                    menuloca = false;
-//                    break;
-//                    
-//                case 1: // LISTAR TODOS OS CARROS QUE EXISTEM EM UMA LOCACAO
-//                    if (locadora.locacoes.isEmpty()){
-//                        System.out.println("Nao existem locacoes na locadora.");
-//                    }else{
-//                        System.out.println("Temos essas locacoes na locadora: \n");
-//                        i = 0;
-//                        while (i < locadora.locacoes.size()){
-//                            System.out.println(i + " - "+locadora.locacoes.get(i).toString());
-//                            i++;
-//                        }
-//                        Iverifica = true;
-//                        System.out.println("Qual locacao deseja verificar [Digite o indice]:");
-//                        while (Iverifica){
-//                            entrada = input.nextInt();
-//                            if (entrada >= 0 && entrada < locadora.locacoes.size()){
-//                                i = 0;
-//                                System.out.println("\nDono da locacao: "+locadora.locacoes.get(entrada).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(entrada).getData()+".\nCarros que existem nessa locacao: ");
-//                                while (i < locadora.locacoes.get(entrada).getTam()){
-//                                    System.out.println(i + " - "+locadora.locacoes.get(entrada).getCarro(i).toString());
-//                                    i++;
-//                                }
-//                                System.out.println();
-//                                Iverifica = false;
-//                            }else{
-//                                System.out.println("Digite um indice valido por favor: ");
-//                            }
-//                        }
-//                        Thread.sleep(1500);
-//                    }
-//                    break;
 //                case 2: // CRIAR UMA NOVA LOCACAO
 //                    if (locadora.cars.isEmpty()){
 //                        System.out.println("\nNao existem carros para serem alugados na locadora.");
