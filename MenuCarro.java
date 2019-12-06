@@ -1,4 +1,4 @@
-package TrabalhoPratico;
+package tp2;
 
 import java.util.Random;
 import java.awt.*;
@@ -42,13 +42,17 @@ public class MenuCarro extends JFrame implements ActionListener{
         			// Sair do programa
         			dispose();
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Cadastrar Carro")) {
-        			// Chama uma funcao para mostrar os carros
+      
         			
         		
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Remover Carro")) {
         			System.out.println("Funciona aqui tambem");
-        			// Funcao para criar locacao
-        		        		}
+        	
+        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Buscar Carro")) {
+        			
+        			System.out.println("Teste");
+        		}
+        		
         		
     		}
     	});
@@ -62,4 +66,5 @@ public class MenuCarro extends JFrame implements ActionListener{
 		
 	}
 }
+
 
