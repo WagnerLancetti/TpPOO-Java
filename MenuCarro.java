@@ -48,13 +48,7 @@ public class MenuCarro extends JFrame implements ActionListener{
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Remover Carro")) {
         			System.out.println("Funciona aqui tambem");
         			// Funcao para criar locacao
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver um carro de uma locacao especifica")) {
-        			// Funcao para devolver carro
-        			System.out.println("Teste");
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver uma locacao completa")){
-        			//Funcao para devolver locacao
-        			System.out.println("Franciele caladona!\n");
-        		}
+        		        		}
         		
     		}
     	});
