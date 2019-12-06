@@ -14,20 +14,19 @@ public class MenuLoca extends JFrame implements ActionListener{
     String[] escolhas = {"Voltar para o Menu Principal", "Visualizar todos os carros alugados em uma locacao", "Criar uma nova locacao", "Devolver um carro de uma locacao especifica", "Devolver uma locacao completa"};
     ButtonGroup grupo = new ButtonGroup();
     
-    MenuLoca(){
+    public void Menu(){
     	setTitle("Menu Locacao");
     	setSize(500,300);
 		setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
-        setLayout(new GridLayout(10,1));
+        setLayout(new GridLayout(5,1));
         setVisible(true);
-        
+        JPanel panel = new JPanel(); 
         JLabel titulo = new JLabel("Menu Locacao",SwingConstants.CENTER);
         titulo.setFont(new Font("Arial",Font.BOLD,30));
         add(titulo);
         
-        add(new JLabel("O que voce deseja fazer?",SwingConstants.CENTER));
         
         final JComboBox<String> cb = new JComboBox<String>(escolhas);
         cb.setBounds(200, 50,90,20);
@@ -40,29 +39,37 @@ public class MenuLoca extends JFrame implements ActionListener{
         conf.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (cb.getItemAt(cb.getSelectedIndex()).equals("Voltar para o Menu Principal")) {
-        			// Sair do programa
-        			System.out.println("OI MUNDO!\n");
+        			dispose();
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Visualizar todos os carros alugados em uma locacao")) {
+        			VisualizaLocacoes(panel);
         			// Chama uma funcao para mostrar os carros
-        			System.out.println("OI PESSOAS!\n");
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Criar uma nova locacao")) {
-        			System.out.println("Funciona aqui tambem");
         			// Funcao para criar locacao
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver um carro de uma locacao especifica")) {
         			// Funcao para devolver carro
-        			System.out.println("Teste");
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver uma locacao completa")){
         			//Funcao para devolver locacao
-        			System.out.println("Franciele caladona!\n");
         		}
         		
     		}
     	});
-        add(conf);
+        panel.add(new JLabel("O que voce deseja fazer?\n",SwingConstants.CENTER));
+        panel.add(cb);
+        panel.add(conf);
+        add(panel);
 	}
     
        
-    
+    public void VisualizaLocacoes(JPanel panel) {
+    	remove(panel);
+    	panel = new JPanel();
+    	panel.add(new JLabel("Marque qual locacao voce deseja verificar\n",SwingConstants.CENTER));
+    	
+    	add(panel);
+    	revalidate();
+    	
+    	
+    }
 //    public void Menu(Locadora locadora) throws InterruptedException{
 //    	ArrayList<Carro> carro1 = new ArrayList<>();
 //    	int i,entrada=0,entrada2 = 0,j;
@@ -80,7 +87,7 @@ public class MenuLoca extends JFrame implements ActionListener{
 //            System.out.println("3 - Devolver um carro de uma locacao especifica");
 //            System.out.println("4 - Devolver uma locacao completa");
 //            System.out.print("Opcao: ");
-//            int opcao = input.nextInt();
+//            int opcao = in)put.nextInt();
 //            System.out.println("**************************************************");
 //            switch (opcao) {
 //                case 0: // SAIR DO MENU DE LOCACAO
