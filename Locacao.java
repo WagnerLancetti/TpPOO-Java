@@ -39,11 +39,16 @@ public class Locacao extends Entidade{
 	public void setData(String data) {
 		this.Data = data;
 	}
-	
+	public void setCarros(ArrayList<Carro> carros) {
+		this.carros = carros;
+	}
+	public ArrayList<Carro> getCarros() {
+		return carros;
+	}
 	/* MÉTODOS */
     @Override
 	public String toString() {
-		return "Locacao do cliente "+this.getCliente()+" que possue "+ this.getTam() + " carro(s) alugado(s). A locacao possui ID "+this.identificador+"."; 
+		return "Locacao do cliente: "+this.getCliente()+"\nReserva feita em: "+this.getData()+ "\nA locacao possui ID: "+this.identificador+"\nCarros alugados: "+getCarros();
 	}
 	public void DelCarro(int entrada) {
 		this.carros.remove(entrada);
