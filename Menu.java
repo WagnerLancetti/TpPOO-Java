@@ -9,9 +9,18 @@ import javax.swing.*;
 public class Menu extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	boolean menu = true;
-    
+        Locadora locadora = new Locadora();
 	
     public void MenuPrincipal(){
+        //TESTE ESTATICO (APAGAR)
+        Carro c = new Carro("Honda","XXX1234","Azul","Sport",2019,198237);
+    	Carro b = new Carro("FOrd","ABC1234","Preto","Familia",2015,8576293);
+    	Locacao loca = new Locacao("Wagner","18:26",81727313);
+    	loca.addCarro(c);
+    	loca.addCarro(b);
+    	locadora.locacoes.add(loca);
+        //_________________________________________________________________________________
+        
     	ButtonGroup grupo = new ButtonGroup();
     	JLabel titulo2 = new JLabel("Marque o que deseja fazer:",SwingConstants.CENTER);
     	JLabel titulo = new JLabel("Menu Principal",SwingConstants.CENTER);
@@ -50,15 +59,15 @@ public class Menu extends JFrame implements ActionListener{
         i++;
         
         JButton conf = new JButton("Confirmar");
-        conf.setPreferredSize(new Dimension(10,10));
-        conf.addActionListener(new ActionListener() {
+        conf.addActionListener(new ActionListener(){
+                @Override
         	public void actionPerformed(ActionEvent e){
 	            if(botao.get(0).isSelected()){    
 	            	System.exit(0);
 	            }    
 	            else if(botao.get(1).isSelected()){    
 	            	MenuLoca m = new MenuLoca();
-	            	m.Menu();
+	            	m.Menu(locadora);
 	            }
 	            else if(botao.get(2).isSelected()){
 //	               MenuCarro m = new MenuCarro();
