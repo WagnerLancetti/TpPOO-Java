@@ -39,8 +39,8 @@ public class Arquivo {
 		             cor = particao[3];
 		             placa = particao[4];
 		             alugado = false;
-		             alugado = Boolean.parseBoolean(particao[5]);
-		             id = Integer.parseInt(particao[6]);
+		             //alugado = Boolean.parseBoolean(particao[5]);
+		             id = Integer.parseInt(particao[5]);
 		             c.setMarca(marca);
 		             c.setPlaca(placa);
 		             c.setCor(cor);
@@ -132,4 +132,6 @@ public class Arquivo {
 	
 
 	}
+
+
 
