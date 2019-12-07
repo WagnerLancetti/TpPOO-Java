@@ -12,26 +12,14 @@ public class MenuLoca extends JFrame implements ActionListener{
 	/* Atributos */
     Scanner input = new Scanner(System.in);
     Random gerador = new Random(System.currentTimeMillis());
-    String[] escolhas = {"Voltar para o Menu Principal", "Visualizar todos os carros alugados em uma locacao", "Criar uma nova locacao", "Devolver um carro de uma locacao especifica", "Devolver uma locacao completa"};
+    String[] escolhas = {"Voltar para o Menu Principal", "Visualizar as locacoes existentes", "Criar uma nova locacao", "Devolver um carro de uma locacao especifica", "Devolver uma locacao completa"};
     ButtonGroup grupo = new ButtonGroup();
     int i = 0;
     
     
     public void Menu(Locadora locadora){
-    	//ME APAGA DPS
-    	Carro c = new Carro("Honda","XXX1234","Azul","Sport",2019,198237);
-    	Carro b = new Carro("FOrd","ABC1234","Preto","Familia",2015,8576293);
-    	Locacao loca = new Locacao("Wagner","18:26",81727313);
-    	loca.addCarro(c);
-    	loca.addCarro(b);
-    	locadora.locacoes.add(loca);
-    	
-    	
-    	
-    	
-    	
     	setTitle("Menu Locacao");
-    	setSize(500,300);
+    	setSize(600,300);
 		setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
@@ -55,7 +43,7 @@ public class MenuLoca extends JFrame implements ActionListener{
         	public void actionPerformed(ActionEvent e) {
         		if (cb.getItemAt(cb.getSelectedIndex()).equals("Voltar para o Menu Principal")) {
         			dispose();
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Visualizar todos os carros alugados em uma locacao")) {
+        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Visualizar as locacoes existentes")) {
         			VisualizaLocacoes(panel,locadora);
         			// Chama uma funcao para mostrar os carros
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Criar uma nova locacao")) {
@@ -64,7 +52,7 @@ public class MenuLoca extends JFrame implements ActionListener{
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver um carro de uma locacao especifica")) {
         			// Funcao para devolver carro
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Devolver uma locacao completa")){
-        			//Funcao para devolver locacao
+                            DevolverLocacaoCompleta(panel,locadora);
         		}
     		}
     	});
@@ -74,32 +62,47 @@ public class MenuLoca extends JFrame implements ActionListener{
         add(panel);
 	}
     
-       
-    public void VisualizaLocacoes(JPanel panel,Locadora locadora) {
-    	remove(panel);
-    	panel = new JPanel();
-    	ButtonGroup grupo = new ButtonGroup();
-    	ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-    	panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+1,1));    	panel.add(new JLabel("Marque qual locacao voce deseja verificar",SwingConstants.CENTER));
-    	i = 0;
-    	while (i < locadora.locacoes.size()) {
-			botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
-			botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-			panel.add(botao.get(i));
-			grupo.add(botao.get(i));
-			i++;
-    	}
-    	
-    	JButton conf = new JButton("Confirmar");
-    	conf.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//    			MostraCarro(panel,locadora,botao);
-			}
-    	});
-    	add(panel);
-    	revalidate();
+    //=============================================================================================================
+    public void VisualizaLocacoes(JPanel panel,Locadora locadora){
+        if (locadora.locacoes.isEmpty()){
+            remove(panel);
+            panel = new JPanel();   	
+            panel.add(new JLabel("Ainda nao existem locacoes feitas na locadora!",SwingConstants.CENTER));
+            add(panel);
+            JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose(); 
+                }
+            });
+            add(v);
+            revalidate();
+        }else{
+            remove(panel);
+            panel = new JPanel();
+            ButtonGroup grupo = new ButtonGroup();
+            ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+1,1));    	
+            panel.add(new JLabel("Marque qual locacao voce deseja verificar:",SwingConstants.CENTER));
+            i = 0;
+            while (i < locadora.locacoes.size()) {
+                            botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
+                            botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+                            panel.add(botao.get(i));
+                            grupo.add(botao.get(i));
+                            i++;
+            }
+
+            JButton conf = new JButton("Confirmar");
+            conf.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+    //    			MostraCarro(panel,locadora,botao);
+                            }
+            });
+            add(panel);
+            revalidate();
+        }
     }
-    
     public void MostraCarro(JPanel panel, Locadora locadora, ArrayList<JRadioButton> botao) {
     	i = 0;
     	while(i < locadora.locacoes.size()) {
@@ -114,10 +117,90 @@ public class MenuLoca extends JFrame implements ActionListener{
     	}
     }
     
+    //=============================================================================================================
     public void CriarLocacao(JPanel panel, Locadora locadora) {
     	
     }
     
+    //=============================================================================================================
+    public void DevolverLocacaoCompleta(JPanel panel, Locadora locadora){
+        if (locadora.locacoes.isEmpty()){
+            remove(panel);
+            panel = new JPanel();   	
+            panel.add(new JLabel("Nao existem locacoes para serem devolvidas!",SwingConstants.CENTER));
+            add(panel);
+            JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose(); 
+                }
+            });
+            add(v);
+            revalidate();
+        }else{
+            remove(panel);
+            panel = new JPanel();
+            ButtonGroup grupo = new ButtonGroup();
+            ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
+            panel.add(new JLabel("Marque qual locacao voce deseja devolver:",SwingConstants.CENTER));
+            i = 0;
+            while (i < locadora.locacoes.size()) {
+		botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
+		botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(botao.get(i));
+		grupo.add(botao.get(i));
+		i++;
+            }
+            add(panel);
+
+            JButton v = new JButton("Devolver");
+            v.addActionListener((ActionEvent e) -> {
+                i = 0;
+                while (i < locadora.locacoes.size()) {
+                    if(botao.get(i).isSelected()){
+                            locadora.DevolverLocacao(i);
+                            JOptionPane.showMessageDialog(this,"Locacao devolvida com sucesso! Agradecemos a preferencia!");
+                            dispose();
+                    }
+                    i++;
+                }
+            });
+            add(v);
+            revalidate();
+        }
+    }
+    
+//    case 1: // LISTAR TODOS OS CARROS QUE EXISTEM EM UMA LOCACAO
+//                    if (locadora.locacoes.isEmpty()){
+//                        System.out.println("Nao existem locacoes na locadora.");
+//                    }else{
+//                        System.out.println("Temos essas locacoes na locadora: \n");
+//                        i = 0;
+//                        while (i < locadora.locacoes.size()){
+//                            System.out.println(i + " - "+locadora.locacoes.get(i).toString());
+//                            i++;
+//                        }
+//                        Iverifica = true;
+//                        System.out.println("Qual locacao deseja verificar [Digite o indice]:");
+//                        while (Iverifica){
+//                            entrada = input.nextInt();
+//                            if (entrada >= 0 && entrada < locadora.locacoes.size()){
+//                                i = 0;
+//                                System.out.println("\nDono da locacao: "+locadora.locacoes.get(entrada).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(entrada).getData()+".\nCarros que existem nessa locacao: ");
+//                                while (i < locadora.locacoes.get(entrada).getTam()){
+//                                    System.out.println(i + " - "+locadora.locacoes.get(entrada).getCarro(i).toString());
+//                                    i++;
+//                                }
+//                                System.out.println();
+//                                Iverifica = false;
+//                            }else{
+//                                System.out.println("Digite um indice valido por favor: ");
+//                            }
+//                        }
+//                        Thread.sleep(1500);
+//                    }
+//                    break;
 //                case 2: // CRIAR UMA NOVA LOCACAO
 //                    if (locadora.cars.isEmpty()){
 //                        System.out.println("\nNao existem carros para serem alugados na locadora.");
@@ -273,4 +356,3 @@ public class MenuLoca extends JFrame implements ActionListener{
 		
 	}
 }
-
