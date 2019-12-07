@@ -121,7 +121,7 @@ public class Arquivo {
 		    	FileWriter fw = new FileWriter(nome);
 		        BufferedWriter output = new BufferedWriter(fw);
 		        for (int i = 0; i < carro.size(); i++){
-		            output.write(carro.get(i).toString());
+		             output.write(carro.get(i).toString().replaceAll(",","").replace("[","").replace("]",""));
 		            output.newLine();
 		        }
 		        output.close();
