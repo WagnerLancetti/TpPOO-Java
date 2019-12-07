@@ -74,7 +74,7 @@ public class Carro extends Entidade{
     /* METODOS */
     @Override
     public String toString(){
-        return "Carro: "+this.getMarca()+", "+this.getModelo()+", "+this.getAno()+", "+this.getCor()+", placa "+this.getPlaca()+", ID do carro "+this.identificador+".";
+        return ""+this.getMarca()+";"+this.getModelo()+";"+this.getAno()+";"+this.getCor()+";"+this.getPlaca()+"; "+this.identificador+"";
     }
 	
         
