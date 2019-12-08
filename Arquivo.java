@@ -16,12 +16,12 @@ public class Arquivo {
 		    	Carro c = new Carro();
 		    	Carro c3 = new Carro();
 		    	String marca=null;
-	            String modelo=null;
-	            int ano=0;
-	            String cor=null;
-	            boolean alugado=false;
-	            String placa=null;
-	            String cliente = null;
+	          	  String modelo=null;
+	           	 int ano=0;
+	           	 String cor=null;
+	           	 boolean alugado=false;
+	           	 String placa=null;
+	           	 String cliente = null;
 	        	String data = null;
 	        	String carro = null;
 	        	int id=0;
@@ -46,25 +46,28 @@ public class Arquivo {
 		             c.setCor(cor);
 		             c.setModelo(modelo);
 		             c.setAno(ano);
+		             
 		             c.identificador = id;
 		             locadora.cars.add(c);
 		             //System.out.println(c);
 		             locadora.carsAlugados.add(c);
 		          //   System.out.println("RESULT marca="+marca+" modelo="+modelo+" ano="+ano+"cor="+cor+" alugado="+alugado+" placa="+placa);
-		        	}else if("locacoes.txt" == nome) { 
+		        	}else if("locacoes.txt" == nome) {
+		        	
 		        	String line2 = scan.nextLine();
+		        	String linec = scan.nextLine();
 		        	String line3 = scan.nextLine();
+		        	
 		        	String[] particao1 = line.split(": "); 
 		        	String[] particao2 = line2.split(": ");
+		        	String[] particaoc = linec.split(": ");
 		        	String[] particao3 = line3.split(": ");
 		        	//recebem a segunda parte na partição
 		        	 cliente = particao1[1]; 
 		        	 data = particao2[1];
-		        	 carro = particao3[1];//todos os carros contidos na mesma string mas serao separados
-		        	// System.out.println("cliente = "+cliente+" data = "+data+"carro = "+carro);
-		        	 //a string carro é separada onde tem "," 
-		        	 //cada partição é um carro alugado
-		        	 String[] particao4 = carro.split(", "); 
+		        	 id = Integer.parseInt(particaoc[1]);
+		        	 carro = particao3[1];
+		        	 String[] particao4 = carro.split(","); 
 		        	 int i=0;
 		        	 String[] cars = new String[particao4.length]; 
 		        	 //o vetor cars recebe as partes separadas
@@ -80,35 +83,32 @@ public class Arquivo {
 			         String Cor;
 			         boolean Alugado;
 			         String Placa;
+			         int identificador = 0;
 		        	 int j=0;
 		        	 ArrayList<Carro> carsAlugados = new ArrayList<>();
 		        	 while(j < cars.length) { 
 		        		 String[] particao5 = cars[j].split(";");
-			             Marca = particao5[0];
-			             //System.out.println("TESTE MARCA="+Marca);
-			             Modelo = particao5[1];
-			            // System.out.println("TESTE MOD="+Modelo);
-			             Ano = Integer.parseInt(particao5[2]);
-			           //  System.out.println("TESTE ANO="+Ano);
-			             Cor = particao5[3];
-			             Placa = particao5[4];
-			             Ano = Integer.parseInt(particao5[5]);
-			            // System.out.println("ID="+id);
-			             Alugado = true;		
-			            // System.out.println("RESULT2 marca= "+Marca+"modelo="+Modelo+"ano="+Ano+"cor="+Cor+"alugado="+Alugado+"placa="+Placa+"id="+id);
-			            // Carro c3 = new Carro();
-			             c3.setMarca(marca);
-			             c3.setPlaca(placa);
-			             c3.setCor(cor);
-			             c3.setModelo(modelo);
-			             c3.setAno(ano);
-			             c3.identificador = id;
-			             locadora.cars.add(c3);
-			            // System.out.println(c3);
-			             locadora.carsAlugados.add(c3);
+		        		 marca = particao5[0];
+			             modelo = particao5[1];
+			             ano = Integer.parseInt(particao5[2]);
+			             cor = particao5[3];
+			             placa = particao5[4];
+			             alugado = true;
+			             //alugado = Boolean.parseBoolean(particao[5]);
+			             id = Integer.parseInt(particao5[5]);
+			             c.setMarca(marca);
+			             c.setPlaca(placa);
+			             c.setCor(cor);
+			             c.setModelo(modelo);
+			             c.setAno(ano);
+			             
+			             c.identificador = id;
+			             locadora.cars.add(c);
+			             //System.out.println(c);
+			             locadora.carsAlugados.add(c);
 			             j++;
 			            }
-		        	 locadora.CriarLocacao(carsAlugados,cliente,data,id);
+		        	 locadora.CriarLocacao(carsAlugados,cliente,data,identificador);
 		        }
 		        }
 		        scan.close();
@@ -121,7 +121,7 @@ public class Arquivo {
 		    	FileWriter fw = new FileWriter(nome);
 		        BufferedWriter output = new BufferedWriter(fw);
 		        for (int i = 0; i < carro.size(); i++){
-		             output.write(carro.get(i).toString().replaceAll(",","").replace("[","").replace("]",""));
+		            output.write(carro.get(i).toString().replaceAll(",","").replace("[","").replace("]",""));
 		            output.newLine();
 		        }
 		        output.close();
@@ -132,6 +132,4 @@ public class Arquivo {
 	
 
 	}
-
-
 
