@@ -82,7 +82,7 @@ public class MenuLoca extends JFrame implements ActionListener{
             panel = new JPanel();
             ButtonGroup grupo = new ButtonGroup();
             ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+1,1));    	
+            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
             panel.add(new JLabel("Marque qual locacao voce deseja verificar:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
@@ -92,33 +92,45 @@ public class MenuLoca extends JFrame implements ActionListener{
                             grupo.add(botao.get(i));
                             i++;
             }
-
-            JButton conf = new JButton("Confirmar");
-            conf.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-    //    			MostraCarro(panel,locadora,botao);
-                            }
-            });
             add(panel);
+            JButton v = new JButton("Consultar");
+            v.addActionListener((ActionEvent e) -> {
+                i = 0;
+                while (i < locadora.locacoes.size()) {
+                    if(botao.get(i).isSelected()){
+                        TabelaCarros(locadora, i);
+                    }
+                    i++;
+                }
+            });
+            add(v);
             revalidate();
         }
     }
-    public void MostraCarro(JPanel panel, Locadora locadora, ArrayList<JRadioButton> botao) {
-    	i = 0;
-    	while(i < locadora.locacoes.size()) {
-			if (botao.get(i).isSelected()) {
-				break;
-			}
-			i++;
-		}
-    	int j = 0;
-    	while (j < locadora.locacoes.get(i).getTam()) {
-    		panel.add(new JLabel(locadora.locacoes.get(i).getCarro(j).toString()));
-    	}
-    }
-    
+    public void TabelaCarros(Locadora locadora, int id){
+        JFrame f;
+        f = new JFrame();
+        
+        int j = 0;
+        System.out.println("\nDono da locacao: "+locadora.locacoes.get(id).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(id).getData()+".\nCarros que existem nessa locacao: ");
+        while (j < locadora.locacoes.get(id).getTam()){
+            System.out.println(id + " - " + locadora.locacoes.get(id).getCarro(j).toString());
+            j++;
+        }
+        
+        String data[][]={ {"101","Amit","670000"},{"102","Jai","780000"},{"101","Sachin","700000"}};    
+        String column[]={"ID","Marca","Modelo","Placa","Cor","Ano","REG"};       
+        JTable jt = new JTable(data,column);    
+        jt.setBounds(30,40,200,300);          
+        JScrollPane sp=new JScrollPane(jt);    
+        f.add(sp);
+        f.setSize(300,400);    
+        f.setVisible(true);
+        f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
+}  
+
     //=============================================================================================================
-    public void CriarLocacao(JPanel panel, Locadora locadora) {
+    public void CriarLocacao(JPanel panel, Locadora locadora){
     	
     }
     
@@ -153,7 +165,6 @@ public class MenuLoca extends JFrame implements ActionListener{
 		i++;
             }
             add(panel);
-
             JButton v = new JButton("Devolver");
             v.addActionListener((ActionEvent e) -> {
                 i = 0;
@@ -171,36 +182,6 @@ public class MenuLoca extends JFrame implements ActionListener{
         }
     }
     
-//    case 1: // LISTAR TODOS OS CARROS QUE EXISTEM EM UMA LOCACAO
-//                    if (locadora.locacoes.isEmpty()){
-//                        System.out.println("Nao existem locacoes na locadora.");
-//                    }else{
-//                        System.out.println("Temos essas locacoes na locadora: \n");
-//                        i = 0;
-//                        while (i < locadora.locacoes.size()){
-//                            System.out.println(i + " - "+locadora.locacoes.get(i).toString());
-//                            i++;
-//                        }
-//                        Iverifica = true;
-//                        System.out.println("Qual locacao deseja verificar [Digite o indice]:");
-//                        while (Iverifica){
-//                            entrada = input.nextInt();
-//                            if (entrada >= 0 && entrada < locadora.locacoes.size()){
-//                                i = 0;
-//                                System.out.println("\nDono da locacao: "+locadora.locacoes.get(entrada).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(entrada).getData()+".\nCarros que existem nessa locacao: ");
-//                                while (i < locadora.locacoes.get(entrada).getTam()){
-//                                    System.out.println(i + " - "+locadora.locacoes.get(entrada).getCarro(i).toString());
-//                                    i++;
-//                                }
-//                                System.out.println();
-//                                Iverifica = false;
-//                            }else{
-//                                System.out.println("Digite um indice valido por favor: ");
-//                            }
-//                        }
-//                        Thread.sleep(1500);
-//                    }
-//                    break;
 //                case 2: // CRIAR UMA NOVA LOCACAO
 //                    if (locadora.cars.isEmpty()){
 //                        System.out.println("\nNao existem carros para serem alugados na locadora.");
@@ -316,39 +297,6 @@ public class MenuLoca extends JFrame implements ActionListener{
 //                    }
 //                    Thread.sleep(1500);
 //                    break;
-//                    
-//                case 4: // DEVOLVER TODA UMA LOCACAO
-//                	if (locadora.locacoes.isEmpty()) {
-//                		System.out.println("Nao existem locacoes para serem devolvidas.");
-//                	}else{
-//                		System.out.println("Temos essas locacoes na locadora: ");
-//                		i = 0;
-//                		while (i < locadora.locacoes.size()) {
-//                			System.out.println(i + " - "+locadora.locacoes.get(i).toString());
-//                			i ++;
-//                		}
-//                		System.out.println("Qual locacao deseja devolver? [Digite o indice]: ");
-//                		Iverifica = true;
-//                		while (Iverifica) {
-//                			entrada = input.nextInt();
-//                			if (entrada >= 0 && entrada < locadora.locacoes.size()) {
-//                				locadora.DevolverLocacao(entrada);
-//                				System.out.println("\nLocacao devolvida com sucesso! Agradecemos a preferencia!");
-//                				Iverifica = false;
-//                			}else{
-//                				System.out.println("Digite um indice valido por favor: ");
-//                			}
-//                		}
-//                	}
-//                	break;
-//                default: // Comando invalido
-//                    System.out.println("Erro, codigo digitado invalido!");
-//                    break;
-//            }
-//        }
-//    }
-//
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
