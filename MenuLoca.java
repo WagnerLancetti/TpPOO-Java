@@ -106,7 +106,26 @@ public class MenuLocacao extends JFrame implements ActionListener{
             revalidate();
         }
     }
+    public void TabelaCarros(Locadora locadora, int id){
+        JFrame f = new JFrame("Carros");
+        int j = 0;
+        System.out.println("\nDono da locacao: "+locadora.locacoes.get(id).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(id).getData()+".\nCarros que existem nessa locacao: ");
+        while (j < locadora.locacoes.get(id).getTam()){
+            System.out.println(id + " - " + locadora.locacoes.get(id).getCarro(j).toString());
+            j++;
+        }
+        //ARRUMAR TABELA
+        String data[][]={ {"Ford","Fiesta","Branco"},{"Fiat","Strada","Prata"}};    
+        String column[]={"Marca","Modelo","Cor"};         
+        JTable jt=new JTable(data,column);    
+        jt.setBounds(30,40,200,300);          
+        JScrollPane sp=new JScrollPane(jt);    
+        f.setLocationRelativeTo(null);
+        f.add(sp);          
+        f.setSize(300,400);    
+        f.setVisible(true); 
 
+    }
     //=============================================================================================================
     public void CriarLocacao(JPanel panel, Locadora locadora){
     	
@@ -184,17 +203,17 @@ public class MenuLocacao extends JFrame implements ActionListener{
             panel1.add(new JLabel("Marque qual locacao voce deseja devolver carros:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
-		botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
+		botao.add(new JRadioButton (locadora.locacoes.get(i).toString()+"\n",false));
 		botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
 		panel1.add(botao.get(i));
 		grupo.add(botao.get(i));
 		i++;
             }
             add(panel1);
-            JButton v = new JButton("Devolver");
+            JButton v = new JButton("Confirmar");
             v.addActionListener((ActionEvent e) -> {
                 i = 0;
-                while (i < locadora.locacoes.size()) {
+                while (i < locadora.locacoes.size()){
                     if(botao.get(i).isSelected()){
                         Carros(panel1,locadora,i);
                     }
