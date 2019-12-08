@@ -48,7 +48,7 @@ public class Locacao extends Entidade{
 	/* MÉTODOS */
     @Override
 	public String toString() {
-		return "Locacao do cliente: "+this.getCliente()+"\nReserva feita em: "+this.getData()+ "\nA locacao possui ID: "+this.identificador+"\nCarros alugados: "+getCarros();
+		return "Locacao do cliente: "+this.getCliente()+" - Reserva feita em: "+this.getData();
 	}
 	public void DelCarro(int entrada) {
 		this.carros.remove(entrada);
