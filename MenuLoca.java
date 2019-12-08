@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Scanner;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class MenuLoca extends JFrame implements ActionListener{
+public class MenuLocacao extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	/* Atributos */
     Scanner input = new Scanner(System.in);
@@ -20,7 +21,7 @@ public class MenuLoca extends JFrame implements ActionListener{
     public void Menu(Locadora locadora){
     	setTitle("Menu Locacao");
     	setSize(600,300);
-		setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
         setLayout(new GridLayout(5,1));
@@ -86,11 +87,11 @@ public class MenuLoca extends JFrame implements ActionListener{
             panel.add(new JLabel("Marque qual locacao voce deseja verificar:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
-                            botao.add(new JRadioButton (locadora.locacoes.toString()+"\n",false));
-                            botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-                            panel.add(botao.get(i));
-                            grupo.add(botao.get(i));
-                            i++;
+                botao.add(new JRadioButton (locadora.locacoes.get(i).toString()+"\n",false));
+                botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+                panel.add(botao.get(i));
+                grupo.add(botao.get(i));
+                i++;
             }
             add(panel);
             JButton v = new JButton("Consultar");
@@ -123,7 +124,13 @@ public class MenuLoca extends JFrame implements ActionListener{
         JScrollPane sp=new JScrollPane(jt);    
         f.setLocationRelativeTo(null);
         f.add(sp);          
-        f.setSize(300,400);    
+        f.setSize(300,400);
+        JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose(); 
+                }
+            });
         f.setVisible(true); 
 
     }
