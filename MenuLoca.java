@@ -98,7 +98,7 @@ public class MenuLoca extends JFrame implements ActionListener{
                 i = 0;
                 while (i < locadora.locacoes.size()) {
                     if(botao.get(i).isSelected()){
-                        TabelaCarros(locadora, i);
+                        TabelaCarros(locadora,i);
                     }
                     i++;
                 }
@@ -108,26 +108,25 @@ public class MenuLoca extends JFrame implements ActionListener{
         }
     }
     public void TabelaCarros(Locadora locadora, int id){
-        JFrame f;
-        f = new JFrame();
-        
+        JFrame f = new JFrame("Carros");
         int j = 0;
         System.out.println("\nDono da locacao: "+locadora.locacoes.get(id).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(id).getData()+".\nCarros que existem nessa locacao: ");
         while (j < locadora.locacoes.get(id).getTam()){
             System.out.println(id + " - " + locadora.locacoes.get(id).getCarro(j).toString());
             j++;
         }
-        
-        String data[][]={ {"101","Amit","670000"},{"102","Jai","780000"},{"101","Sachin","700000"}};    
-        String column[]={"ID","Marca","Modelo","Placa","Cor","Ano","REG"};       
-        JTable jt = new JTable(data,column);    
+        //ARRUMAR TABELA
+        String data[][]={ {"Ford","Fiesta","Branco"},{"Fiat","Strada","Prata"}};    
+        String column[]={"Marca","Modelo","Cor"};         
+        JTable jt=new JTable(data,column);    
         jt.setBounds(30,40,200,300);          
         JScrollPane sp=new JScrollPane(jt);    
-        f.add(sp);
+        f.setLocationRelativeTo(null);
+        f.add(sp);          
         f.setSize(300,400);    
-        f.setVisible(true);
-        f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
-}  
+        f.setVisible(true); 
+
+    }
 
     //=============================================================================================================
     public void CriarLocacao(JPanel panel, Locadora locadora){
