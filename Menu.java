@@ -13,12 +13,18 @@ public class Menu extends JFrame implements ActionListener{
 	
     public void MenuPrincipal(){
         //TESTE ESTATICO (APAGAR)
-        Carro c = new Carro("Honda","XXX1234","Azul","Sport",2019,198237);
-    	Carro b = new Carro("FOrd","ABC1234","Preto","Familia",2015,8576293);
-    	Locacao loca = new Locacao("Wagner","18:26",81727313);
-    	loca.addCarro(c);
-    	loca.addCarro(b);
-    	locadora.locacoes.add(loca);
+        Carro a = new Carro("Honda","AGJ-5687","Azul","City",2018,198237);
+    	Carro b = new Carro("Ford","HJS-6658","Preto","Fiesta",2015,198238);
+        Carro c = new Carro("Fiat","FFA-5687","Azul","Strada",2016,198237);
+    	Carro d = new Carro("Volkswagen","HJS-6658","Preto","Gol",2011,198238);
+    	Locacao loca1 = new Locacao("Wagner","08/12/2019",81727313);
+        Locacao loca2 = new Locacao("Humberto","09/12/2019",8554785);
+    	loca1.addCarro(a);
+    	loca1.addCarro(b);
+        loca2.addCarro(c);
+    	loca2.addCarro(d);
+    	locadora.locacoes.add(loca1);
+        locadora.locacoes.add(loca2);
         //_________________________________________________________________________________
         
     	ButtonGroup grupo = new ButtonGroup();
