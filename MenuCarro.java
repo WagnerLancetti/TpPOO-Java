@@ -202,7 +202,7 @@ public class MenuCarro extends JFrame implements ActionListener{
 
 	
 void removeCarro(JPanel panel,Locadora locadora){
-	 if (locadora.locacoes.isEmpty()){
+	 if (locadora.cars.isEmpty()){
          remove(panel);
          panel = new JPanel();   	
          panel.add(new JLabel("Nao existem carros para serem removidos!",SwingConstants.CENTER));
