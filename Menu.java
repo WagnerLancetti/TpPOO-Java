@@ -72,8 +72,8 @@ public class Menu extends JFrame implements ActionListener{
                     m.Menu(locadora);
                 }
                 else if(botao.get(2).isSelected()){
-//	               MenuCarro m = new MenuCarro();
-//	               m.Menu();
+                    MenuCarro m = new MenuCarro();
+                    m.MenuCarro(locadora);
                 }
             }
     	});
