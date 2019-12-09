@@ -20,7 +20,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
     
     public void Menu(Locadora locadora){
     	setTitle("Menu Locacao");
-    	setSize(600,300);
+    	setSize(600,600);
 		setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
@@ -81,7 +81,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
             panel = new JPanel();
             ButtonGroup grupo = new ButtonGroup();
             ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
+            panel.setLayout(new GridLayout(locadora.locacoes.size()+3,1));    	
             panel.add(new JLabel("Marque qual locacao voce deseja verificar:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
@@ -108,28 +108,25 @@ public class MenuLocacao extends JFrame implements ActionListener{
                     dispose();
                 }
              });
-            add(v);
-            add(v1);
+            panel.add(v);
+            panel.add(v1);
             revalidate();
         }
     }
     public void TabelaCarros(Locadora locadora, int id){
+        System.out.print(id);
         JFrame f = new JFrame("Carros");
         f.setLayout(new GridLayout(3,1));  
         int j = 0;
         f.add(new JLabel("\nDono da locacao: "+locadora.locacoes.get(id).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(id).getData()),SwingConstants.CENTER);
-        String data[][]= new String[locadora.locacoes.get(id).getTam()][6];
+        String data[][]= new String[locadora.locacoes.get(id).getTam()][5];
+        i =0;
         while(i < locadora.locacoes.get(id).getTam()){
             data[i][0] = locadora.locacoes.get(id).getCarro(i).getMarca();
+            data[i][2] = locadora.locacoes.get(id).getCarro(i).getModelo();
             data[i][1] = locadora.locacoes.get(id).getCarro(i).getPlaca();
-            data[i][2] = locadora.locacoes.get(id).getCarro(i).getCor();
-            data[i][3] = locadora.locacoes.get(id).getCarro(i).getModelo();
+            data[i][3] = locadora.locacoes.get(id).getCarro(i).getCor();
             data[i][4] = Integer.toString(locadora.locacoes.get(id).getCarro(i).getAno());
-            if (locadora.locacoes.get(id).getCarro(i).isAlugado()){
-                data[i][5] = "True";
-            }else{
-                data[i][5] = "False";
-            }
             i++;
         }
         JButton v = new JButton("Voltar");
@@ -138,7 +135,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
                     f.dispose();
                 }
         });
-        String column[]={"Marca","Placa","Cor","Modelo","Ano","Status"};
+        String column[]={"Marca","Placa","Cor","Modelo","Ano"};
         JTable jt=new JTable(data,column);    
         jt.setBounds(30,40,200,300);          
         JScrollPane sp=new JScrollPane(jt);    
@@ -274,7 +271,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
             JPanel panel1 = new JPanel();
             grupo = new ButtonGroup();
             ArrayList<JRadioButton> botao = new ArrayList<>();
-            panel1.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.size()+1,1));    	
+            panel1.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.size()+0,1));    	
             panel1.add(new JLabel("Marque qual locacao voce deseja devolver carros:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
