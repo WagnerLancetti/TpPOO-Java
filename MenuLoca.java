@@ -127,8 +127,58 @@ public class MenuLocacao extends JFrame implements ActionListener{
 
     }
     //=============================================================================================================
-    public void CriarLocacao(JPanel panel, Locadora locadora){
-    	
+  public void CriarLocacao(JPanel panel, Locadora locadora){
+        if (locadora.cars.size() > 0){
+            remove(panel);
+            panel = new JPanel();
+            panel.setLayout(new GridLayout(locadora.cars.size()+ 3,2));   
+            JTextField nome = new JTextField("Digite o nome de quem vai alugar");
+            JTextField data = new JTextField("Digite a data de locacao");
+            nome.setBounds(50,150, 200,30);
+            data.setBounds(50,150, 200,30);
+            nome.setHorizontalAlignment(JTextField.CENTER); // alinha a direita
+            data.setHorizontalAlignment(JTextField.CENTER);
+            i = 0;
+            panel.add(nome);
+            panel.add(data);
+            ArrayList<JCheckBox> botoes = new ArrayList<>();
+            while (i < locadora.cars.size()){
+                botoes.add(new JCheckBox(locadora.cars.get(i).toString()));
+                botoes.get(i).setBounds(100,200,150,20);
+                panel.add(botoes.get(i));
+                i++;
+            }           
+            ArrayList<Carro> carros = new ArrayList<>();
+            JButton b = new JButton("Confirmar");
+            b.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    i = 0;
+                    while (i < locadora.cars.size()){
+                        if (botoes.get(i).isSelected()){
+                            carros.add(locadora.cars.get(i));
+                        }
+                        i++;
+                    }
+                    locadora.CriarLocacao(carros, nome.getText(), data.getText(),gerador.nextInt(9999999));
+                    dispose();
+                }
+            });
+            panel.add(b);
+            add(panel);
+            revalidate();
+        }else{
+            remove(panel);
+            panel = new JPanel();
+            panel.add(new Label("Não existem carros para serem alugados na locadora!",SwingConstants.CENTER));
+            JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose(); 
+                }
+            });
+            add(v);
+            revalidate();
+        }
     }
     
     //============================================================================================================= FUNCIONANDO OK
