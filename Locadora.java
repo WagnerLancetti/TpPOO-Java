@@ -16,10 +16,20 @@ public class Locadora extends Entidade{
     
     public void CriarLocacao (ArrayList<Carro> carro, String nome, String data,int num) { // Cria uma nova locacao
     	Locacao locacao = new Locacao(nome,data,num);
-    	int i = 0;
+    	int i = 0,k = 0,j=0;
+        int indices[] = new int[carro.size()];  
     	while (i < carro.size()) {
-    		locacao.addCarro(carro.get(i));
-    		i++;
+            k = 0;
+            while(k < this.cars.size()){
+                if (carro.get(i).getPlaca() == this.cars.get(k).getPlaca()){
+                    this.cars.get(k).setAlugado(true);
+                    this.carsAlugados.add(this.cars.get(k));
+                    this.cars.remove(k);
+                    locacao.addCarro(carro.get(i));
+                }
+                k++;
+            }
+            i++;
     	}
     	this.locacoes.add(locacao);
     }
