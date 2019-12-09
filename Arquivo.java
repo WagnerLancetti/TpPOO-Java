@@ -1,4 +1,5 @@
 package TrabalhoPratico;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -7,129 +8,173 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileReader;
  
 public class Arquivo {
-		
-	//private Carro c3;
-	public void carregaArquivo(String nome,Locadora locadora) throws FileNotFoundException{    
-		    try {   
-		    	Carro c = new Carro();
-		    	Carro c3 = new Carro();
-		    	String marca=null;
-	          	  String modelo=null;
-	           	 int ano=0;
-	           	 String cor=null;
-	           	 boolean alugado=false;
-	           	 String placa=null;
-	           	 String cliente = null;
-	        	String data = null;
-	        	String carro = null;
-	        	int id=0;
-	            File f = new File(nome);
-		        Scanner scan = new Scanner(f);
-		        while (scan.hasNextLine()) { 
-		        	String line = scan.nextLine();
-		        	if (line.equals(""))
-		        	    continue;
-		        if("carros.txt" == nome) {
-		        	 String[] particao= line.split(";");
-		             marca = particao[0];
-		             modelo = particao[1];
-		             ano = Integer.parseInt(particao[2]);
-		             cor = particao[3];
-		             placa = particao[4];
-		             alugado = false;
-		             //alugado = Boolean.parseBoolean(particao[5]);
-		             id = Integer.parseInt(particao[5]);
-		             c.setMarca(marca);
-		             c.setPlaca(placa);
-		             c.setCor(cor);
-		             c.setModelo(modelo);
-		             c.setAno(ano);
-		             
-		             c.identificador = id;
-		             locadora.cars.add(c);
-		             //System.out.println(c);
-		             locadora.carsAlugados.add(c);
-		          //   System.out.println("RESULT marca="+marca+" modelo="+modelo+" ano="+ano+"cor="+cor+" alugado="+alugado+" placa="+placa);
-		        	}else if("locacoes.txt" == nome) {
-		        	
-		        	String line2 = scan.nextLine();
-		        	String linec = scan.nextLine();
-		        	String line3 = scan.nextLine();
-		        	
-		        	String[] particao1 = line.split(": "); 
-		        	String[] particao2 = line2.split(": ");
-		        	String[] particaoc = linec.split(": ");
-		        	String[] particao3 = line3.split(": ");
-		        	//recebem a segunda parte na partição
-		        	 cliente = particao1[1]; 
-		        	 data = particao2[1];
-		        	 id = Integer.parseInt(particaoc[1]);
-		        	 carro = particao3[1];
-		        	 String[] particao4 = carro.split(","); 
-		        	 int i=0;
-		        	 String[] cars = new String[particao4.length]; 
-		        	 //o vetor cars recebe as partes separadas
-		        	 while(i<particao4.length) {//particao4.length = quantidade de carros
-		        		 cars[i] = particao4[i];
-		        		// System.out.println("carro0="+cars[i]);
-		        		  i++;
-		        	 } 
-		        	 //Separa os atributos do carro pra mandar pro vetor de carros alugados
-		        	 String Marca;
-		        	 String Modelo;
-		        	 int Ano ;
-			         String Cor;
-			         boolean Alugado;
-			         String Placa;
-			         int identificador = 0;
-		        	 int j=0;
-		        	 ArrayList<Carro> carsAlugados = new ArrayList<>();
-		        	 while(j < cars.length) { 
-		        		 String[] particao5 = cars[j].split(";");
-		        		 marca = particao5[0];
-			             modelo = particao5[1];
-			             ano = Integer.parseInt(particao5[2]);
-			             cor = particao5[3];
-			             placa = particao5[4];
-			             alugado = true;
-			             //alugado = Boolean.parseBoolean(particao[5]);
-			             id = Integer.parseInt(particao5[5]);
-			             c.setMarca(marca);
-			             c.setPlaca(placa);
-			             c.setCor(cor);
-			             c.setModelo(modelo);
-			             c.setAno(ano);
-			             
-			             c.identificador = id;
-			             locadora.cars.add(c);
-			             //System.out.println(c);
-			             locadora.carsAlugados.add(c);
-			             j++;
-			            }
-		        	 locadora.CriarLocacao(carsAlugados,cliente,data,identificador);
-		        }
-		        }
-		        scan.close();
-		    } catch (IOException ioe) {
-		        ioe.printStackTrace();
-		    }
-		}
-	public void gravaArquivo(ArrayList carro,String nome) {
-		    try {
-		    	FileWriter fw = new FileWriter(nome);
-		        BufferedWriter output = new BufferedWriter(fw);
-		        for (int i = 0; i < carro.size(); i++){
-		            output.write(carro.get(i).toString().replaceAll(",","").replace("[","").replace("]",""));
-		            output.newLine();
-		        }
-		        output.close();
-		    } catch (Exception e ) {
-				JOptionPane.showMessageDialog(null, "erro");
-		    }
-		}
-	
+    private static Arquivo instance = null;
 
-	}
+    private Arquivo(){}
+
+    public static Arquivo getInstance(){
+        if (instance == null){
+            instance = new Arquivo();
+        }
+        return instance;
+    }
+    //private Carro c3;
+    public void carregaArquivo(String nome,Locadora locadora) throws FileNotFoundException, IOException{    
+                try {
+                    FileReader reader = new FileReader ("locadora.txt");
+                    BufferedReader br = new BufferedReader(reader);
+                    boolean continua = true;
+                    String VLinha,LinhaCars = null,LinhaAlugados = null,LinhaLoca = null;
+                    VLinha = br.readLine();
+                    String[] textoSeparado;
+                    Locacao locas;
+                    if (VLinha.equals("Cars")){
+                        while(continua){
+                            LinhaCars = br.readLine();
+                            if (LinhaCars.equals("CarsAlugados")){
+                                continua = false;
+                            }else{
+                                Carro carros;
+                                carros = new Carro();
+                                textoSeparado = LinhaCars.split(" ");
+                                carros.identificador = Integer.parseInt(textoSeparado[0]);
+                                carros.setMarca(textoSeparado[1]);
+                                carros.setPlaca(textoSeparado[2]);
+                                carros.setCor(textoSeparado[3]);
+                                carros.setModelo(textoSeparado[4]);
+                                carros.setAno(Integer.parseInt(textoSeparado[5]));
+                                carros.setAlugado(false);
+                                locadora.cars.add(carros);
+                            }
+                        }
+                    }
+                    continua = true;
+                    if(VLinha.equals("CarsAlugados") || LinhaCars.equals("CarsAlugados")){
+                        while(continua){
+                            LinhaAlugados = br.readLine();
+                            if (LinhaAlugados.equals("Locacoes")){
+                                continua = false;
+                            }else{
+                                Carro carros;
+                                carros = new Carro();
+                                textoSeparado = LinhaAlugados.split(" ");
+                                carros.identificador = Integer.parseInt(textoSeparado[0]);
+                                carros.setMarca(textoSeparado[1]);
+                                carros.setPlaca(textoSeparado[2]);
+                                carros.setCor(textoSeparado[3]);
+                                carros.setModelo(textoSeparado[4]);
+                                carros.setAno(Integer.parseInt(textoSeparado[5]));
+                                carros.setAlugado(true);
+                                locadora.carsAlugados.add(carros);
+                            }
+                        }
+                    }
+                    if(VLinha.equals("Locacoes") || LinhaAlugados.equals("Locacoes")){
+                        int tam = 0,i,k;
+                        while((LinhaLoca = br.readLine()) != null){
+                            System.out.println(LinhaLoca);
+                            textoSeparado = LinhaLoca.split(" ");
+                            locas = new Locacao();
+                            locas.identificador = (Integer.parseInt(textoSeparado[0]));
+                            locas.setCliente(textoSeparado[1]);
+                            locas.setData(textoSeparado[2]);
+                            tam = Integer.parseInt(textoSeparado[3]);
+                            i = 0;
+                            k = 4;
+                            while (i < tam){
+                                Carro carros;
+                                carros = new Carro();
+                                carros.identificador = Integer.parseInt(textoSeparado[k]);
+                                k++;
+                                carros.setMarca(textoSeparado[k]);
+                                k++;
+                                carros.setPlaca(textoSeparado[k]);
+                                k++;
+                                carros.setCor(textoSeparado[k]);
+                                k++;
+                                carros.setModelo(textoSeparado[k]);
+                                k++;
+                                carros.setAno(Integer.parseInt(textoSeparado[k]));
+                                k++;
+                                carros.setAlugado(true);
+                                k++;
+                                i++;
+                                locas.addCarro(carros);
+                            }
+                            locadora.locacoes.add(locas);
+                        }
+                    }
+                    br.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+
+            }
+    public void gravaArquivo(Locadora locadora,String nome) {
+        int i,j;
+        try {
+            FileWriter fw = new FileWriter("teste.txt");
+            BufferedWriter saida = new BufferedWriter(fw);
+            if (locadora.cars.size() > 0){
+                saida.write("Cars\n");
+                i = 0;
+                while (i < locadora.cars.size()){
+                    saida.write((Integer.toString(locadora.cars.get(i).identificador))+" ");
+                    saida.write(locadora.cars.get(i).getMarca()+" ");
+                    saida.write(locadora.cars.get(i).getPlaca()+" ");
+                    saida.write(locadora.cars.get(i).getCor()+" ");
+                    saida.write(locadora.cars.get(i).getModelo()+" ");
+                    saida.write((Integer.toString(locadora.cars.get(i).getAno()))+" ");
+                    saida.write("false\n");
+                    i++;
+                }
+            }
+            if (locadora.carsAlugados.size() > 0){
+                saida.write("CarsAlugados\n");
+                i = 0;
+                while (i < locadora.carsAlugados.size()){
+                    saida.write((Integer.toString(locadora.carsAlugados.get(i).identificador))+" ");
+                    saida.write(locadora.carsAlugados.get(i).getMarca()+" ");
+                    saida.write(locadora.carsAlugados.get(i).getPlaca()+" ");
+                    saida.write(locadora.carsAlugados.get(i).getCor()+" ");
+                    saida.write(locadora.carsAlugados.get(i).getModelo()+" ");
+                    saida.write((Integer.toString(locadora.carsAlugados.get(i).getAno()))+" ");
+                    saida.write("true\n");
+                    i++;
+                }
+            }
+            if (locadora.locacoes.size() > 0){
+                saida.write("Locacoes\n");
+                i = 0;
+                while (i < locadora.locacoes.size()){
+                    saida.write(Integer.toString(locadora.locacoes.get(i).identificador)+" ");
+                    saida.write(locadora.locacoes.get(i).getCliente()+" ");
+                    saida.write(locadora.locacoes.get(i).getData()+" ");
+                    saida.write(Integer.toString(locadora.locacoes.get(i).getTam())+" ");
+                    j = 0;
+                    while (j < locadora.locacoes.get(i).getTam()){
+                        saida.write(Integer.toString(locadora.locacoes.get(i).getCarro(j).identificador)+" ");
+                        saida.write(locadora.locacoes.get(i).getCarro(j).getMarca()+" ");
+                        saida.write(locadora.locacoes.get(i).getCarro(j).getPlaca()+" ");
+                        saida.write(locadora.locacoes.get(i).getCarro(j).getCor()+" ");
+                        saida.write(locadora.locacoes.get(i).getCarro(j).getModelo()+" ");
+                        saida.write(Integer.toString(locadora.locacoes.get(i).getCarro(j).getAno())+" ");
+                        saida.write("true" + " ");
+                        j++;
+                    }
+                    saida.write("\n");
+                    i++;
+                }
+            }
+            saida.close();
+        } catch (Exception e ) {
+                    JOptionPane.showMessageDialog(null, "erro");
+        }
+    }
+
+
+}
 
