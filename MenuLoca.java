@@ -120,14 +120,14 @@ public class MenuLocacao extends JFrame implements ActionListener{
         int j = 0;
         f.add(new JLabel("\nDono da locacao: "+locadora.locacoes.get(id).getCliente()+".\nReserva feita em: "+locadora.locacoes.get(id).getData()),SwingConstants.CENTER);
         String data[][]= new String[locadora.locacoes.get(id).getTam()][5];
-        i =0;
-        while(i < locadora.locacoes.get(id).getTam()){
-            data[i][0] = locadora.locacoes.get(id).getCarro(i).getMarca();
-            data[i][2] = locadora.locacoes.get(id).getCarro(i).getModelo();
-            data[i][1] = locadora.locacoes.get(id).getCarro(i).getPlaca();
-            data[i][3] = locadora.locacoes.get(id).getCarro(i).getCor();
-            data[i][4] = Integer.toString(locadora.locacoes.get(id).getCarro(i).getAno());
-            i++;
+        int k = 0;
+        while(k < locadora.locacoes.get(id).getTam()){
+            data[k][0] = locadora.locacoes.get(id).getCarro(k).getMarca();
+            data[k][2] = locadora.locacoes.get(id).getCarro(k).getModelo();
+            data[k][1] = locadora.locacoes.get(id).getCarro(k).getPlaca();
+            data[k][3] = locadora.locacoes.get(id).getCarro(k).getCor();
+            data[k][4] = Integer.toString(locadora.locacoes.get(id).getCarro(k).getAno());
+            k++;
         }
         JButton v = new JButton("Voltar");
             v.addActionListener(new ActionListener(){  
