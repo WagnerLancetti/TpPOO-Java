@@ -114,7 +114,6 @@ public class MenuLocacao extends JFrame implements ActionListener{
         }
     }
     public void TabelaCarros(Locadora locadora, int id){
-        System.out.print(id);
         JFrame f = new JFrame("Carros");
         f.setLayout(new GridLayout(3,1));  
         int j = 0;
@@ -222,7 +221,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
             panel = new JPanel();
             ButtonGroup grupo = new ButtonGroup();
             ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-            panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
+            panel.setLayout(new GridLayout(locadora.locacoes.size()+3,1));    	
             panel.add(new JLabel("Marque qual locacao voce deseja devolver:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
@@ -245,7 +244,14 @@ public class MenuLocacao extends JFrame implements ActionListener{
                     i++;
                 }
             });
-            add(v);
+            JButton v1 = new JButton("Voltar");
+            v1.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose();
+                }
+             });
+            panel.add(v);
+            panel.add(v1);
             revalidate();
         }
     }
@@ -271,9 +277,9 @@ public class MenuLocacao extends JFrame implements ActionListener{
             JPanel panel1 = new JPanel();
             grupo = new ButtonGroup();
             ArrayList<JRadioButton> botao = new ArrayList<>();
-            panel1.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.size()+0,1));    	
+            panel1.setLayout(new GridLayout(locadora.locacoes.size()+3,1));    	
             panel1.add(new JLabel("Marque qual locacao voce deseja devolver carros:",SwingConstants.CENTER));
-            i = 0;
+            int i = 0;
             while (i < locadora.locacoes.size()) {
 		botao.add(new JRadioButton (locadora.locacoes.get(i).toString()+"\n",false));
 		botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
@@ -281,18 +287,25 @@ public class MenuLocacao extends JFrame implements ActionListener{
 		grupo.add(botao.get(i));
 		i++;
             }
+            add(panel1);
             JButton v = new JButton("Confirmar");
             v.addActionListener((ActionEvent e) -> {
-                i = 0;
-                while (i < locadora.locacoes.size()){
-                    if(botao.get(i).isSelected()){
-                        Carros(panel1,locadora,i);
+                int j = 0;
+                while (j < locadora.locacoes.size()){
+                    if(botao.get(j).isSelected()){
+                        Carros(panel1,locadora,j);
                     }
-                    i++;
+                    j++;
                 }
             });
+            JButton v1 = new JButton("Voltar");
+            v1.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose();
+                }
+             });
             panel1.add(v);
-            add(panel1);
+            panel1.add(v1);
             revalidate();
         }
 }
@@ -301,7 +314,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
         JPanel panel2 = new JPanel();
         grupo = new ButtonGroup();
         ArrayList<JRadioButton> botao = new ArrayList<>();
-        panel2.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam(),1));    	
+        panel2.setLayout(new GridLayout(locadora.locacoes.get(i).getTam()+3,1));    	
         panel2.add(new JLabel("Marque qual carro voce deseja devolver:",SwingConstants.CENTER));
         i = 0;
         while (i < locadora.locacoes.get(id).getTam()){
@@ -330,8 +343,14 @@ public class MenuLocacao extends JFrame implements ActionListener{
                 j++;
             }
         });
-        
-        add(v);
+        JButton v1 = new JButton("Voltar");
+            v1.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose();
+                }
+             });
+        panel2.add(v);
+        panel2.add(v1);
         revalidate();
     }
     
