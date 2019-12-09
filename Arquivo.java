@@ -24,7 +24,7 @@ public class Arquivo {
     //private Carro c3;
     public void carregaArquivo(String nome,Locadora locadora) throws FileNotFoundException, IOException{    
                 try {
-                    FileReader reader = new FileReader ("locadora.txt");
+                    FileReader reader = new FileReader (nome);
                     BufferedReader br = new BufferedReader(reader);
                     boolean continua = true;
                     String VLinha,LinhaCars = null,LinhaAlugados = null,LinhaLoca = null;
@@ -75,7 +75,6 @@ public class Arquivo {
                     if(VLinha.equals("Locacoes") || LinhaAlugados.equals("Locacoes")){
                         int tam = 0,i,k;
                         while((LinhaLoca = br.readLine()) != null){
-                            System.out.println(LinhaLoca);
                             textoSeparado = LinhaLoca.split(" ");
                             locas = new Locacao();
                             locas.identificador = (Integer.parseInt(textoSeparado[0]));
@@ -116,7 +115,7 @@ public class Arquivo {
     public void gravaArquivo(Locadora locadora,String nome) {
         int i,j;
         try {
-            FileWriter fw = new FileWriter("teste.txt");
+            FileWriter fw = new FileWriter(nome);
             BufferedWriter saida = new BufferedWriter(fw);
             if (locadora.cars.size() > 0){
                 saida.write("Cars\n");
