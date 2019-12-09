@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class MenuLocacao extends JFrame implements ActionListener{
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 	/* Atributos */
     Scanner input = new Scanner(System.in);
     Random gerador = new Random(System.currentTimeMillis());
@@ -272,9 +272,9 @@ public class MenuLocacao extends JFrame implements ActionListener{
         }else{
             remove(panel);
             JPanel panel1 = new JPanel();
-            ButtonGroup grupo = new ButtonGroup();
-            ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-            panel1.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
+            grupo = new ButtonGroup();
+            ArrayList<JRadioButton> botao = new ArrayList<>();
+            panel1.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.size()+1,1));    	
             panel1.add(new JLabel("Marque qual locacao voce deseja devolver carros:",SwingConstants.CENTER));
             i = 0;
             while (i < locadora.locacoes.size()) {
@@ -284,7 +284,6 @@ public class MenuLocacao extends JFrame implements ActionListener{
 		grupo.add(botao.get(i));
 		i++;
             }
-            add(panel1);
             JButton v = new JButton("Confirmar");
             v.addActionListener((ActionEvent e) -> {
                 i = 0;
@@ -295,41 +294,48 @@ public class MenuLocacao extends JFrame implements ActionListener{
                     i++;
                 }
             });
-            add(v);
+            panel1.add(v);
+            add(panel1);
             revalidate();
         }
 }
     public void Carros(JPanel panel1, Locadora locadora, int id){
         remove(panel1);
         JPanel panel2 = new JPanel();
-        ButtonGroup grupo = new ButtonGroup();
-            ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-            panel2.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));    	
-            panel2.add(new JLabel("Marque qual carro voce deseja devolver:",SwingConstants.CENTER));
-            i = 0;
-            while (i < locadora.locacoes.get(id).getTam()){
-                    System.out.println(locadora.locacoes.get(id).getCarro(i).toString());
-		botao.add(new JRadioButton (locadora.locacoes.get(id).getCarro(i).toString()+"\n",false));
-		botao.get(id).setHorizontalAlignment(SwingConstants.CENTER);
-		panel2.add(botao.get(id));
-		grupo.add(botao.get(id));
-		i++;
-            }
-            add(panel2);
-            JButton v = new JButton("Devolver");
-            v.addActionListener((ActionEvent e) -> {
-                int j = 0;
-                while (j < locadora.locacoes.get(id).getTam()) {
-                    if(botao.get(j).isSelected()){
-                            locadora.DevolverCarro(id,j);
-                            JOptionPane.showMessageDialog(this,"Carro devolvido com sucesso!");
-                            dispose();
+        grupo = new ButtonGroup();
+        ArrayList<JRadioButton> botao = new ArrayList<>();
+        panel2.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam(),1));    	
+        panel2.add(new JLabel("Marque qual carro voce deseja devolver:",SwingConstants.CENTER));
+        i = 0;
+        while (i < locadora.locacoes.get(id).getTam()){
+            botao.add(new JRadioButton (locadora.locacoes.get(id).getCarro(i).toString()+"\n",false));
+            botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+            panel2.add(botao.get(i));
+            grupo.add(botao.get(i));
+            i++;
+        }
+        add(panel2);
+        JButton v = new JButton("Devolver");
+        v.addActionListener((ActionEvent e) -> {
+            int j = 0;
+            while (j < locadora.locacoes.get(id).getTam()) {
+                if(botao.get(j).isSelected()){
+                    locadora.DevolverCarro(id,j);
+                    if (locadora.locacoes.get(id).getTam() == 0){
+                        locadora.locacoes.remove(id);
+                        JOptionPane.showMessageDialog(this,"Carro devolvido com sucesso e Locacao apagada!");
+                    }else{
+                        JOptionPane.showMessageDialog(this,"Carro devolvido com sucesso!");
                     }
-                    j++;
+                    dispose();
+                    break;
                 }
-            });
-            add(v);
-            revalidate();
+                j++;
+            }
+        });
+        
+        add(v);
+        revalidate();
     }
     
     @Override
