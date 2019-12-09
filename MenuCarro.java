@@ -1,26 +1,34 @@
 package TrabalhoPratico;
-
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.util.Scanner;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
 import java.awt.Container;
+import javax.swing.text.MaskFormatter;
+import java.awt.GridLayout;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class MenuCarro extends JFrame implements ActionListener{
+	
 	private static final long serialVersionUID = 1L;
     Scanner input = new Scanner(System.in);
     Random gerador = new Random(System.currentTimeMillis());
-    String[] escolhas = {"Voltar ao Menu Principal", "Cadastrar Carro",
-    		"Remover Carro", "Buscar Carro"};
-    ButtonGroup grupo = new ButtonGroup();
-    MenuCarro(){
+    int i=0;
+    private String verificacao = null;
+    private int entrada =0;
+  //  ArrayList<Carro> especificidade;
+    
+    void MenuCarro(Locadora locadora) throws InterruptedException{
+    	
+    	String[] escolhas = {"Voltar ao Menu Principal", "Cadastrar Carro",
+        		"Remover Carro", "Buscar Carro","Exibir Tabela"};
     	setTitle("Menu Carro");
     	setSize(500,300);
 		setLocationRelativeTo(null);
@@ -33,8 +41,6 @@ public class MenuCarro extends JFrame implements ActionListener{
         titulo.setFont(new Font("Arial",Font.BOLD,30));
         add(titulo);
         
-        add(new JLabel("O que voce deseja fazer?",SwingConstants.CENTER));
-        
         final JComboBox<String> cb = new JComboBox<String>(escolhas);
         cb.setBounds(200, 50,90,20);
         cb.setMaximumSize(null);
@@ -46,97 +52,207 @@ public class MenuCarro extends JFrame implements ActionListener{
         conf.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (cb.getItemAt(cb.getSelectedIndex()).equals("Voltar ao Menu Principal")) {
-        			// Sair do programa
         			dispose();
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Cadastrar Carro")) {
-        			CadastraCarro(panel);
-        			
+        			CadastraCarro(panel,locadora);
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Remover Carro")) {
-        			System.out.println("Funciona aqui tambem");
-        	
+        			removeCarro(panel,locadora);
         		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Buscar Carro")) {
-        			
-        			System.out.println("Teste");
+        			//buscarCarro(panel,locadora);
+        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Exibir Tabela")) {
+        			//exibirTabela(panel,locadora);
         		}
-        		
-        		
     		}
     	});
-        add(conf);
+        panel.add(cb);
+        panel.add(conf);
+        add(panel);
 	}
-    
-    void CadastraCarro(JPanel panel){
+   
+
+    void CadastraCarro(JPanel panel,Locadora locadora){
     	remove(panel);
-    	JFrame f = new JFrame();
-    	JPanel pane=(JPanel) getContentPane();
+    	JTextField field1, field2, field3,field4,field5;
     	panel = new JPanel();
-    	panel.add(new JLabel("Digite de informacoes do novo carro\n",SwingConstants.CENTER));
-    	//f.add(panel);
-    	JTextField campo = new JTextField(10);
-    	campo.setToolTipText("Marca");
-    	//campo.setToolTipText("Marca");
-    	campo.setFont(new Font("ARIAL", Font.BOLD, 14));
-		//add(campo, BorderLayout.NORTH);
-    	//add(campo);
-        JLabel marca = new JLabel("Marca: ");
-        JLabel placa = new JLabel("Placa: ");
-        JLabel modelo = new JLabel("Modelo: ");
-        JLabel ano = new JLabel("Ano: ");
-        JLabel cor = new JLabel("Cor: ");
-        marca.setBounds(50,40,100,20);
-        placa.setBounds(50,80,100,20);
-        modelo.setBounds(50,120,100,20);
-        ano.setBounds(50,160,100,20);
-        cor.setBounds(50,160,100,20);
-        MaskFormatter mascmarca = null;
-        MaskFormatter mascplaca = null;
-        MaskFormatter mascmodelo = null;
-        MaskFormatter mascAno = null;
-        MarkFormatter masccor = null;
-        JFormattedTextField jFormattedTextMar = new JFormattedTextField(mascmarca);
-        JFormattedTextField jFormattedTextPl = new JFormattedTextField(mascplaca);
-        JFormattedTextField jFormattedTextMod = new JFormattedTextField(mascmodelo);
-        JFormattedTextField jFormattedTextAno = new JFormattedTextField(mascAno);
-        JFormattedTextField jFormattedTextCor = new JFormattedTextField(masccor);
-        jFormattedTextMar.setBounds(150,40,100,20);
-        jFormattedTextPl.setBounds(150,80,100,20);
-        jFormattedTextMod.setBounds(150,120,100,20);
-        jFormattedTextAno.setBounds(150,160,100,20);
-        jFormattedTextCor.setBounds(150,160,100,20);
-        jFormattedTextMar.setColumns(2);
-        jFormattedTextPl.setColumns(2);
-        jFormattedTextMod.setColumns(2);
-        jFormattedTextCor.setColumns(2);
-        /*jFormattedTextMar.
-        jFormattedTextMar.
-        jFormattedTextMar.
-        jFormattedTextMar.*/
-       
-        marca.setAlignmentX(LEFT_ALIGNMENT);
-        placa.setAlignmentX(LEFT_ALIGNMENT);
-        modelo.setAlignmentX(LEFT_ALIGNMENT);
-        ano.setAlignmentX(LEFT_ALIGNMENT);
-        cor.setAlignmentX(LEFT_ALIGNMENT);
-        add(marca);
-        add(jFormattedTextMar);
-        add(placa);
-        add(jFormattedTextPl);
-        add(modelo);
-        add(jFormattedTextMod);
-        add(ano);
-        add(jFormattedTextAno);
-        add(cor);
-        add(jFormattedTextCor);
-        JButton cad = new JButton("Cadastrar");
-        
-    	revalidate();
+    	JLabel label1, label2, label3,label4,label5 = null;
+    	JFrame jf;
+    	jf = new JFrame("Cadastrar Carro");
+    	jf.setSize(400,150);
+    	
+    	label1= new JLabel("Marca:");
+    	label2= new JLabel("Placa:");
+    	label3= new JLabel("Modelo:");
+    	label4= new JLabel("Ano:");
+    	label5= new JLabel("Cor:");
+    	
+    	label1.setAlignmentX(LEFT_ALIGNMENT);
+    	label2.setAlignmentX(LEFT_ALIGNMENT);
+    	label3.setAlignmentX(LEFT_ALIGNMENT);
+    	label4.setAlignmentX(LEFT_ALIGNMENT);
+    	label5.setAlignmentX(LEFT_ALIGNMENT);
+    	
+    	field1 = new JTextField(20);
+    	field2 = new JTextField(20); 
+    	field3 = new JTextField(20);
+    	field4 = new JTextField(20);
+    	field5 = new JTextField(20);
+    	
+    	add(new JLabel("Digite de informacoes do novo carro.\n",SwingConstants.CENTER));
+    	add(label1);
+    	add(field1);
+    	add(label2);
+    	add(field2);
+    	add(label3);
+    	add(field3);
+    	add(label4);
+    	add(field4);
+    	add(label5);
+    	add(field5);
+    	JButton cad = new JButton("Cadastrar");
+    	JButton voltar = new JButton("voltar");
+    	cad.addActionListener((ActionEvent e) -> {
+        int i = 0;
+        boolean continua;
+        	if(cad.isSelected()){
+            	continua = true;
+                while (i < locadora.cars.size()){
+                    // Verificar se ja foi cadastrado
+                    if (locadora.cars.get(i).getPlaca().equals(field2)){
+                        continua = false;
+                        i = locadora.cars.size() + 1;
+                    }
+                    i++;
+                }
+                i = 0;
+                while (i < locadora.carsAlugados.size()){
+                    if (locadora.carsAlugados.get(i).getPlaca().equals(field2)){
+                        continua = false;
+                        i = locadora.carsAlugados.size() + 1;
+                    }
+                    i++;
+                }
+            }
+            Carro car = new Carro();
+	    	String marca=null;
+            String modelo=null;
+            int ano=0;
+            String cor=null;
+            boolean alugado=false;
+            String placa=null;
+        	String data = null;
+        	String carro = null;
+        	int id=0;
+        	marca = field1.getText();
+        	placa = field2.getText();
+        	modelo = field3.getText();
+        	ano =  Integer.parseInt(field4.getText());
+        	cor = field5.getText();
+        	//System.out.println("RESULT marca="+marca+" modelo="+modelo+" ano="+ano+"placa="+placa+"cor="+cor);
+        	// locadora.cars.add(car);   
+        	boolean Iverifica = true;
+        	int num=0;
+            while (Iverifica){
+                num = gerador.nextInt(1000000);
+                i = 0;
+                int entrada = 0;
+                while (i < locadora.cars.size()){
+                    if (num == locadora.cars.get(i).identificador){
+                        i = locadora.cars.size();
+                        entrada++;
+                    }
+                    i++;
+                }
+                i = 0;
+                while (i < locadora.carsAlugados.size()){
+                    if (num == locadora.carsAlugados.get(i).identificador){
+                        i = locadora.carsAlugados.size();
+                        entrada++;
+                    }
+                    i++;
+                }
+                if (entrada == 0){
+                    Iverifica = false;
+                }
+            }
+            Carro c = new Carro();
+            c.setMarca(marca);
+            c.setPlaca(placa);
+            c.setCor(cor);
+            c.setModelo(modelo);
+            c.setAno(ano);
+            c.setCor(cor);
+            c.identificador = num;
+            locadora.cars.add(c);
+            
+   
+    });
+    voltar.addActionListener((ActionEvent e) -> {
+    	dispose();
+    });
+	add(cad);
+	add(voltar);
+	setVisible(true);
+	revalidate();
     }
-    
-       
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+void removeCarro(JPanel panel,Locadora locadora){
+	 if (locadora.locacoes.isEmpty()){
+         remove(panel);
+         panel = new JPanel();   	
+         panel.add(new JLabel("Nao existem carros para serem removidos!",SwingConstants.CENTER));
+         add(panel);
+         JButton v = new JButton("Voltar");
+         v.addActionListener(new ActionListener(){  
+             public void actionPerformed(ActionEvent e){  
+                 dispose(); 
+             }
+         });
+         add(v);
+         revalidate();
+     }else{
+         remove(panel);
+         panel = new JPanel();
+         ButtonGroup grupo = new ButtonGroup();
+         ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+         panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));  
+         panel.add(new JLabel("Marque qual carro deseja remover:",SwingConstants.CENTER));
+         i = 0;
+         while (i < locadora.cars.size()) {
+        	 botao.add(new JRadioButton (locadora.ListarCarrosParaAlugar(i)+"\n",false));
+        	 botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+        	 panel.add(botao.get(i));
+        	 grupo.add(botao.get(i));
+        	 i++;
+         }
+         add(panel);
+         JButton rem = new JButton("Remover");
+         rem.addActionListener((ActionEvent e) -> {
+             i = 0;
+             while (i < locadora.locacoes.size()) {
+                 if(botao.get(i).isSelected()){
+                	 locadora.cars.remove(i);
+                         JOptionPane.showMessageDialog(this,"carro removido com sucesso!");
+                         dispose();
+                 }
+                 i++;
+             }
+         }); 
+         JButton voltar = new JButton("voltar");
+         voltar.addActionListener((ActionEvent e) -> {
+     		dispose();
+     	});
+         add(rem);
+         add(voltar);
+         setVisible(true);
+         revalidate();
+     }
 }
+
+
 
