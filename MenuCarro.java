@@ -187,6 +187,213 @@ public class MenuCarro extends JFrame implements ActionListener{
             revalidate();
         }
     }
+  	public void buscarCarro(JPanel panel, Locadora locadora) {
+	    remove(panel);
+	    panel = new JPanel();   	
+		  JLabel title = new JLabel("Selecione por qual opcao deseja buscar:");
+	    title.setAlignmentX(CENTER_ALIGNMENT);
+	    title.setAlignmentY(TOP_ALIGNMENT);
+	    panel.add(title);
+	    add(panel);
+	    JRadioButton marca = new JRadioButton("Marca");
+	    marca.setBounds(119, 58, 109, 23);
+	    marca.setAlignmentY(CENTER_ALIGNMENT);
+	    JRadioButton modelo = new JRadioButton("Modelo");
+	    modelo.setBounds(100,50,100,30); 
+	    modelo.setAlignmentY(CENTER_ALIGNMENT);
+	    JRadioButton ano = new JRadioButton("Ano");
+	    ano.setBounds(100,50,100,30); 
+	    JRadioButton placa = new JRadioButton("Placa");
+	    placa.setBounds(100,50,100,30); 
+	    JRadioButton cor = new JRadioButton("Cor");
+	    cor.setBounds(100,50,100,30); 
+	    JRadioButton id = new JRadioButton("ID");
+	    id.setBounds(100,50,100,30); 
+	    panel.add(marca);
+	    panel.add(modelo);
+	    panel.add(ano);
+	    panel.add(placa);
+	    panel.add(cor);
+	    panel.add(id);
+	    JButton conf = new JButton("Confirmar");
+	    add(conf);
+	    setVisible(true);
+	    int entrada=0;
+	    conf.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if (marca.isSelected()) {
+			    JLabel title = new JLabel("Digite a marca que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(1,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				}
+
+			   }
+
+		     });
+
+		}
+
+			if (modelo.isSelected()) {
+			    JLabel title = new JLabel("Digite o Modelo que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(2,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				}
+
+				}
+
+			 });
+
+
+			}
+
+			if (cor.isSelected()) {
+			    JLabel title = new JLabel("Digite a cor que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(3,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				 }
+
+		            }
+
+		       });
+
+		}
+
+			if (ano.isSelected()) {
+			    JLabel title = new JLabel("Digite o Ano que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(4,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				}
+
+				}
+
+			 });
+
+
+			}
+
+			if (placa.isSelected()) {
+			    JLabel title = new JLabel("Digite a Placa que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(5,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				  }
+
+			      }
+
+			 });
+
+		}
+
+			if (id.isSelected()) {
+			    JLabel title = new JLabel("Digite o iD que deseja buscar:");
+			    add(title);
+			    JTextField field = new JTextField(10);
+			    add(field);
+			    verificacao = field.getText();
+			    JButton buscar = new JButton("Buscar");
+			    add(buscar);
+			    setVisible(true);
+			    buscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e1) {
+			    if(buscar.isSelected()) {
+				ArrayList<Carro> especificidade = locadora.BuscarCarro(6,verificacao);
+				int idn = 0;
+				    while (idn < especificidade.size()){
+					JLabel label = new JLabel(especificidade.get(idn).toString());
+					idn++;
+					add(label);
+					setVisible(true);
+				    }
+				  }
+			       }
+			    });
+			}
+		  }
+	  });
+
+}
+	
+	
+	
     public void TabelaCarros(Locadora locadora){
         JFrame f = new JFrame("Carros");
         f.setLayout(new GridLayout(3,1));  
