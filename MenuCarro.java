@@ -4,34 +4,22 @@ import java.util.Random;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
-import java.util.Scanner;
-import java.awt.Container;
-import javax.swing.text.MaskFormatter;
-import java.awt.GridLayout;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 public class MenuCarro extends JFrame implements ActionListener{
 	
-	private static final long serialVersionUID = 1L;
-    Scanner input = new Scanner(System.in);
+    private static final long serialVersionUID = 1L;
     Random gerador = new Random(System.currentTimeMillis());
     int i=0;
     private String verificacao = null;
     private int entrada =0;
   //  ArrayList<Carro> especificidade;
     
-    void MenuCarro(Locadora locadora) throws InterruptedException{
-    	
-    	String[] escolhas = {"Voltar ao Menu Principal", "Cadastrar Carro",
-        		"Remover Carro", "Buscar Carro","Exibir Tabela"};
+    void MenuCarro(Locadora locadora){
+    	String[] escolhas = {"Voltar ao Menu Principal", "Cadastrar Carro","Remover Carro", "Buscar Carro","Exibir Tabela"};
     	setTitle("Menu Carro");
-    	setSize(500,300);
-		setLocationRelativeTo(null);
+    	setSize(600,600);
+        setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);       
         setLayout(new GridLayout(10,1));
@@ -50,24 +38,24 @@ public class MenuCarro extends JFrame implements ActionListener{
         JButton conf = new JButton("Confirmar");
         add(cb);
         conf.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if (cb.getItemAt(cb.getSelectedIndex()).equals("Voltar ao Menu Principal")) {
-        			dispose();
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Cadastrar Carro")) {
-        			CadastraCarro(panel,locadora);
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Remover Carro")) {
-        			removeCarro(panel,locadora);
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Buscar Carro")) {
-        			//buscarCarro(panel,locadora);
-        		}else if (cb.getItemAt(cb.getSelectedIndex()).equals("Exibir Tabela")) {
-        			//exibirTabela(panel,locadora);
-        		}
-    		}
+            public void actionPerformed(ActionEvent e) {
+                if (cb.getItemAt(cb.getSelectedIndex()).equals("Voltar ao Menu Principal")) {
+                        dispose();
+                }else if (cb.getItemAt(cb.getSelectedIndex()).equals("Cadastrar Carro")) {
+                        CadastraCarro(panel,locadora);
+                }else if (cb.getItemAt(cb.getSelectedIndex()).equals("Remover Carro")) {
+                        removeCarro(panel,locadora);
+                }else if (cb.getItemAt(cb.getSelectedIndex()).equals("Buscar Carro")) {
+                        //buscarCarro(panel,locadora);
+                }else if (cb.getItemAt(cb.getSelectedIndex()).equals("Exibir Tabela")) {
+                        TabelaCarros(locadora);
+                }
+            }
     	});
         panel.add(cb);
         panel.add(conf);
         add(panel);
-	}
+    }
    
 
     void CadastraCarro(JPanel panel,Locadora locadora){
@@ -109,149 +97,146 @@ public class MenuCarro extends JFrame implements ActionListener{
     	add(label5);
     	add(field5);
     	JButton cad = new JButton("Cadastrar");
-    	JButton voltar = new JButton("voltar");
+    	JButton voltar = new JButton("Voltar");
     	cad.addActionListener((ActionEvent e) -> {
-        int i = 0;
-        boolean continua;
-        	if(cad.isSelected()){
-            	continua = true;
-                while (i < locadora.cars.size()){
-                    // Verificar se ja foi cadastrado
-                    if (locadora.cars.get(i).getPlaca().equals(field2)){
-                        continua = false;
-                        i = locadora.cars.size() + 1;
-                    }
-                    i++;
+            boolean continua = true;
+            int i = 0;
+            while (i < locadora.cars.size()){
+                // Verificar se ja foi cadastrado
+                if (locadora.cars.get(i).getPlaca().equals(field2.getText())){
+                    continua = false;
+                    i = locadora.cars.size() + 1;
                 }
-                i = 0;
-                while (i < locadora.carsAlugados.size()){
-                    if (locadora.carsAlugados.get(i).getPlaca().equals(field2)){
-                        continua = false;
-                        i = locadora.carsAlugados.size() + 1;
-                    }
-                    i++;
-                }
+                i++;
             }
-            Carro car = new Carro();
-	    	String marca=null;
-            String modelo=null;
-            int ano=0;
-            String cor=null;
-            boolean alugado=false;
-            String placa=null;
-        	String data = null;
-        	String carro = null;
-        	int id=0;
-        	marca = field1.getText();
-        	placa = field2.getText();
-        	modelo = field3.getText();
-        	ano =  Integer.parseInt(field4.getText());
-        	cor = field5.getText();
-        	//System.out.println("RESULT marca="+marca+" modelo="+modelo+" ano="+ano+"placa="+placa+"cor="+cor);
-        	// locadora.cars.add(car);   
-        	boolean Iverifica = true;
-        	int num=0;
-            while (Iverifica){
-                num = gerador.nextInt(1000000);
-                i = 0;
-                int entrada = 0;
-                while (i < locadora.cars.size()){
-                    if (num == locadora.cars.get(i).identificador){
-                        i = locadora.cars.size();
-                        entrada++;
-                    }
-                    i++;
+            i = 0;
+            while (i < locadora.carsAlugados.size()){
+                if (locadora.carsAlugados.get(i).getPlaca().equals(field2.getText())){
+                    continua = false;
+                    i = locadora.carsAlugados.size() + 1;
                 }
-                i = 0;
-                while (i < locadora.carsAlugados.size()){
-                    if (num == locadora.carsAlugados.get(i).identificador){
-                        i = locadora.carsAlugados.size();
-                        entrada++;
-                    }
-                    i++;
-                }
-                if (entrada == 0){
-                    Iverifica = false;
-                }
+                i++;
             }
-            Carro c = new Carro();
-            c.setMarca(marca);
-            c.setPlaca(placa);
-            c.setCor(cor);
-            c.setModelo(modelo);
-            c.setAno(ano);
-            c.setCor(cor);
-            c.identificador = num;
-            locadora.cars.add(c);
-            
-   
-    });
-    voltar.addActionListener((ActionEvent e) -> {
-    	dispose();
-    });
+            if (continua){
+                Carro c = new Carro(field1.getText(),field2.getText(),field5.getText(),field3.getText(),Integer.parseInt(field4.getText()),gerador.nextInt(1000000));
+                locadora.cars.add(c);
+                JOptionPane.showMessageDialog(this,"Carro Cadastrado com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(this,"Erro! Essa Placa já existe no nosso sistema!");
+            }
+        });
+        voltar.addActionListener((ActionEvent e) -> {
+            dispose();
+        });
 	add(cad);
 	add(voltar);
 	setVisible(true);
 	revalidate();
     }
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+   	
+    void removeCarro(JPanel panel,Locadora locadora){
+        if (locadora.cars.isEmpty()){
+            remove(panel);
+            panel = new JPanel();   	
+            panel.add(new JLabel("Nao existem carros para serem removidos!",SwingConstants.CENTER));
+            add(panel);
+            JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    dispose(); 
+                }
+            });
+            add(v);
+            revalidate();
+        }else{
+            remove(panel);
+            panel = new JPanel();
+            ButtonGroup grupo = new ButtonGroup();
+            ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
+            panel.setLayout(new GridLayout(locadora.cars.size()+1,1));  
+            panel.add(new JLabel("Marque qual carro deseja remover:",SwingConstants.CENTER));
+            i = 0;
+            while (i < locadora.cars.size()) {
+                botao.add(new JRadioButton (locadora.ListarCarrosParaAlugar(i)+"\n",false));
+                botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+                panel.add(botao.get(i));
+                grupo.add(botao.get(i));
+                i++;
+            }
+            add(panel);
+            JButton rem = new JButton("Remover");
+            rem.addActionListener((ActionEvent e) -> {
+                i = 0;
+                while (i < locadora.locacoes.size()) {
+                    if(botao.get(i).isSelected()){
+                        break;
+                    }
+                    i++;
+                }
+                locadora.cars.remove(i);
+                JOptionPane.showMessageDialog(this,"carro removido com sucesso!");
+                dispose();
+            }); 
+            JButton voltar = new JButton("Voltar");
+            voltar.addActionListener((ActionEvent e) -> {
+                dispose();
+            });
+            add(rem);
+            add(voltar);
+            setVisible(true);
+            revalidate();
+        }
+    }
+    public void TabelaCarros(Locadora locadora){
+        JFrame f = new JFrame("Carros");
+        f.setLayout(new GridLayout(3,1));  
+        int j;
+        f.add(new JLabel("Carros que existem na Locadora ",SwingConstants.CENTER));
+//        public Carro(String marca,String placa,String cor,String modelo,int ano,int num) 
+        String data[][] = new String[locadora.cars.size() + locadora.carsAlugados.size()][6];
+        int k = 0;
+        while(k < locadora.cars.size()){
+            data[k][0] = locadora.cars.get(k).getMarca();
+            data[k][2] = locadora.cars.get(k).getModelo();
+            data[k][1] = locadora.cars.get(k).getPlaca();
+            data[k][3] = locadora.cars.get(k).getCor();
+            data[k][4] = Integer.toString(locadora.cars.get(k).getAno());
+            data[k][5] = Integer.toString(locadora.cars.get(k).identificador);
+            k++;
+        }
+        j = 0;
+        while (j < locadora.carsAlugados.size()){
+            data[k][0] = locadora.carsAlugados.get(j).getMarca();
+            data[k][2] = locadora.carsAlugados.get(j).getModelo();
+            data[k][1] = locadora.carsAlugados.get(j).getPlaca();
+            data[k][3] = locadora.carsAlugados.get(j).getCor();
+            data[k][4] = Integer.toString(locadora.carsAlugados.get(j).getAno());
+            data[k][5] = Integer.toString(locadora.carsAlugados.get(j).identificador);
+            k++;
+            j++;
+        }
+        JButton v = new JButton("Voltar");
+            v.addActionListener(new ActionListener(){  
+                public void actionPerformed(ActionEvent e){  
+                    f.dispose();
+                }
+        });
+        String column[]={"Marca","Placa","Cor","Modelo","Ano","ID"};
+        JTable jt=new JTable(data,column);    
+        jt.setBounds(30,40,200,300);          
+        JScrollPane sp=new JScrollPane(jt);    
+        f.setLocationRelativeTo(null);
+        f.add(sp);      
+        f.add(v);
+        f.setSize(300,400);    
+        f.setVisible(true); 
 
-	
-void removeCarro(JPanel panel,Locadora locadora){
-	 if (locadora.cars.isEmpty()){
-         remove(panel);
-         panel = new JPanel();   	
-         panel.add(new JLabel("Nao existem carros para serem removidos!",SwingConstants.CENTER));
-         add(panel);
-         JButton v = new JButton("Voltar");
-         v.addActionListener(new ActionListener(){  
-             public void actionPerformed(ActionEvent e){  
-                 dispose(); 
-             }
-         });
-         add(v);
-         revalidate();
-     }else{
-         remove(panel);
-         panel = new JPanel();
-         ButtonGroup grupo = new ButtonGroup();
-         ArrayList<JRadioButton> botao = new ArrayList<JRadioButton>();
-         panel.setLayout(new GridLayout(locadora.locacoes.size()+locadora.locacoes.get(i).getTam()+0,1));  
-         panel.add(new JLabel("Marque qual carro deseja remover:",SwingConstants.CENTER));
-         i = 0;
-         while (i < locadora.cars.size()) {
-        	 botao.add(new JRadioButton (locadora.ListarCarrosParaAlugar(i)+"\n",false));
-        	 botao.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-        	 panel.add(botao.get(i));
-        	 grupo.add(botao.get(i));
-        	 i++;
-         }
-         add(panel);
-         JButton rem = new JButton("Remover");
-         rem.addActionListener((ActionEvent e) -> {
-             i = 0;
-             while (i < locadora.locacoes.size()) {
-                 if(botao.get(i).isSelected()){
-                	 locadora.cars.remove(i);
-                         JOptionPane.showMessageDialog(this,"carro removido com sucesso!");
-                         dispose();
-                 }
-                 i++;
-             }
-         }); 
-         JButton voltar = new JButton("voltar");
-         voltar.addActionListener((ActionEvent e) -> {
-     		dispose();
-     	});
-         add(rem);
-         add(voltar);
-         setVisible(true);
-         revalidate();
-     }
+    }
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+            // TODO Auto-generated method stub
+
+    }
 }
 
 
