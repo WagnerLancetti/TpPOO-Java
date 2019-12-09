@@ -97,7 +97,7 @@ public class MenuLocacao extends JFrame implements ActionListener{
                 i = 0;
                 while (i < locadora.locacoes.size()) {
                     if(botao.get(i).isSelected()){
-                        //TabelaCarros(locadora,i);
+                        TabelaCarros(locadora,i);
                     }
                     i++;
                 }
@@ -246,7 +246,6 @@ public class MenuLocacao extends JFrame implements ActionListener{
                 int j = 0;
                 while (j < locadora.locacoes.get(id).getTam()) {
                     if(botao.get(j).isSelected()){
-                            System.out.printf("%d %d",id,j);
                             locadora.DevolverCarro(id,j);
                             JOptionPane.showMessageDialog(this,"Carro devolvido com sucesso!");
                             dispose();
