@@ -45,14 +45,14 @@ public class Locacao extends Entidade{
 	public ArrayList<Carro> getCarros() {
 		return carros;
 	}
-	/* MÉTODOS */
+	/* MÃ‰TODOS */
     @Override
-	public String toString() {
-		return "Locacao do cliente: "+this.getCliente()+" - Reserva feita em: "+this.getData();
-	}
-	public void DelCarro(int entrada) {
-		this.carros.remove(entrada);
-	}
+    public String toString() {
+            return "Locacao do cliente: "+this.getCliente()+" - Reserva feita em: "+this.getData();
+    }
+    public void DelCarro(int entrada) {
+            this.carros.remove(entrada);
+    }
     public void addCarro(Carro carro0){
         this.carros.add(carro0);
     }
